@@ -8,10 +8,11 @@ using namespace std;
 
 // угол поворота камеры
 float angle=0.0;
+float speed = 3.0;
 // координаты вектора направления движения камеры
-float lx=0.0f,lz=-1.0f;
+float lx=0.0f,lz=-speed;
 // XZ позиция камеры
-float x=0.0f, z=0.0f;
+float x=0.0f, z=-0.0f;
 //Ключи статуса камеры. Переменные инициализируются нулевыми значениями
 //когда клавиши не нажаты
 float deltaAngle = 0.0f;
@@ -47,6 +48,58 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void makeABlock() {
+    int pos = 1;
+
+    // Front
+	glBegin(GL_QUADS);
+		glVertex3f(-pos, -pos, pos);
+		glVertex3f(-pos,  pos, pos);
+		glVertex3f( pos,  pos, pos);
+		glVertex3f( pos, -pos, pos);
+	glEnd();
+
+    // Back
+    glBegin(GL_QUADS);
+		glVertex3f(-pos, -pos, -pos);
+		glVertex3f(-pos,  pos, -pos);
+		glVertex3f( pos,  pos, -pos);
+		glVertex3f( pos, -pos, -pos);
+	glEnd();
+
+    // Left
+    glBegin(GL_QUADS);
+		glVertex3f(-pos, -pos, -pos);
+		glVertex3f(-pos, -pos,  pos);
+		glVertex3f(-pos,  pos,  pos);
+		glVertex3f(-pos,  pos, -pos);
+	glEnd();
+
+    // Right
+    glBegin(GL_QUADS);
+		glVertex3f(pos, -pos, -pos);
+		glVertex3f(pos, -pos,  pos);
+		glVertex3f(pos,  pos,  pos);
+		glVertex3f(pos,  pos, -pos);
+	glEnd();
+
+    // Top
+    glBegin(GL_QUADS);
+		glVertex3f( pos, pos, -pos);
+		glVertex3f( pos, pos,  pos);
+		glVertex3f(-pos, pos,  pos);
+		glVertex3f(-pos, pos, -pos);
+	glEnd();
+
+    // Bottom
+    glBegin(GL_QUADS);
+		glVertex3f( pos, -pos, -pos);
+		glVertex3f( pos, -pos,  pos);
+		glVertex3f(-pos, -pos,  pos);
+		glVertex3f(-pos, -pos, -pos);
+	glEnd();
+}
+
 void renderScene(void) {
     if (deltaMove)
 		computePos(deltaMove);
@@ -63,25 +116,7 @@ void renderScene(void) {
 		  0.0f, 1.0f,  0.0f );
  
     
-    int pos = 1;
-    float front = -0.5;
-
-    // Front
-	glBegin(GL_QUADS);
-		glVertex3f(-pos, -pos, front);
-		glVertex3f(-pos,  pos, front);
-		glVertex3f( pos,  pos, front);
-		glVertex3f( pos, -pos, front);
-	glEnd();
-
-
-    // Back
-    glBegin(GL_QUADS);
-		glVertex3f(-pos, -pos, -front);
-		glVertex3f(-pos,  pos, -front);
-		glVertex3f( pos,  pos, -front);
-		glVertex3f( pos, -pos, -front);
-	glEnd();
+    makeABlock();
 
  
 	glutSwapBuffers();
