@@ -1,6 +1,5 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
-#include "../include/SOIL/SOIL.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/stb_image.h"
@@ -30,11 +29,11 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void makeABlock() {
-    float pos = 1;
+void makeABlock(int side_index, int top_index, int bottom_index) {
+    float pos = 0.5;
 
    // Activate a texture.
-   glBindTexture(GL_TEXTURE_2D, texture[0]);
+   glBindTexture(GL_TEXTURE_2D, texture[side_index]);
     // Front
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 0); glVertex3f(-pos, -pos, pos);
@@ -67,7 +66,7 @@ void makeABlock() {
 		glTexCoord2f(0, 1); glVertex3f(pos,  pos, -pos);
 	glEnd();
 
-   	glBindTexture(GL_TEXTURE_2D, texture[1]);
+   	glBindTexture(GL_TEXTURE_2D, texture[top_index]);
 
     // Top
     glBegin(GL_QUADS);
@@ -77,7 +76,7 @@ void makeABlock() {
 		glTexCoord2f(0, 1); glVertex3f(-pos, pos, -pos);
 	glEnd();
 
-   	glBindTexture(GL_TEXTURE_2D, texture[2]);
+   	glBindTexture(GL_TEXTURE_2D, texture[bottom_index]);
 
     // Bottom
     glBegin(GL_QUADS);
@@ -96,7 +95,6 @@ void renderScene(void) {
         glutPostRedisplay();
     }
 
-
  // Очистка буфера цвета и глубины.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// обнулить трансформацию
@@ -106,22 +104,22 @@ void renderScene(void) {
 		  x + lx, y + ly, z + lz,
 		  0.0f, 1.0f, 0.0f);
  
-    glPushMatrix();
-	glTranslatef(0, 0, -5);
-	glRotatef(rotate_block, 0, 1, 0);
+	int fieldSize = 30;
 
-		// loadExternalTextures();
-    	makeABlock();
-   		// loadProceduralTextures();
-		
-	glPopMatrix();
+	for (int i = -fieldSize / 2; i < fieldSize / 2; i++) {
+		for (int j = -fieldSize / 2; j < fieldSize / 2; j++) {
+			glPushMatrix();
+			glTranslatef(i, -5, -5 - j);
+			glRotatef(rotate_block, 0, 1, 0);
 
-   	// Specify how texture values combine with current surface color values.
-   	// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); 
+			// makeABlock(0, 1, 2);	// grass
+			makeABlock(2, 2, 2);	// dirt
+				
+			glPopMatrix();
+		}
+	}
 
 	glutSwapBuffers();
-
-	glDisable(GL_TEXTURE_2D);
 }
 
 void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
