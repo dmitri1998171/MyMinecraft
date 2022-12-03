@@ -1,20 +1,51 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
 
+void pressKey(unsigned char key, int x, int y) {
+    switch (key) {
+        case 27:
+            exit(0);
+            break;
+        
+        case 119:       // W
+            deltaMove = 0.5f;
+            break;
+        case 115:       // S
+           deltaMove = -0.5f;
+            break;
+        case 97:        // A
+            deltaMove_side = -0.5f;
+            break;
+        case 100:       // D
+            deltaMove_side = 0.5f;
+            break;
+        
+        case 114:       // R
+            rotate_block += 190.0f;
+            break;
+    }
 
-void pressKey(int key, int xx, int yy) {
+	glutPostRedisplay();
+}
+
+void pressSpecialKey(int key, int xx, int yy) {
 	switch (key) {
-		case GLUT_KEY_UP : deltaMove = 0.5f; break;
+		case GLUT_KEY_UP :   deltaMove =  0.5f; break;
 		case GLUT_KEY_DOWN : deltaMove = -0.5f; break;
 	}
 
 	glutPostRedisplay();
 } 
- 
-void releaseKey(int key, int x, int y) { 	
+
+void releaseKey(int key, int x, int y) {
 	switch (key) {
+        case 119:
+        case 115:
 		case GLUT_KEY_UP :
-		case GLUT_KEY_DOWN : deltaMove = 0;break;
+		case GLUT_KEY_DOWN : deltaMove = 0; break;
+
+        case 97:
+        case 100: deltaMove_side = 0; break;
 	}
 } 
 
@@ -24,8 +55,8 @@ void mouseMove(int x, int y) {
 	delta_x = (WIDTH / 2) - x;
 	delta_y = (HEIGHT / 2) - y;
 
-	yaw = -delta_x * 0.001f;
-	pitch = -delta_y * 0.001f;
+	yaw = -delta_x * 0.01f;
+	pitch = -delta_y * 0.01f;
 
 	// update camera's direction
 	lx = sin(angle + yaw);
