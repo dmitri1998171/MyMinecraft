@@ -21,7 +21,7 @@ void pressKey(unsigned char key, int x, int y) {
             break;
         
         case 114:       // R
-            rotate_block += 190.0f;
+            rotate_block += 90.0f;
             break;
     }
 
