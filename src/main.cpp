@@ -1,15 +1,23 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
-
+#include <math.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/stb_image.h"
 
 GLuint texture[3];
 
 void computePos(float deltaMove) {
-	x += deltaMove * lx * 0.1f;
-	y += deltaMove * ly * 0.1f;
-	z += deltaMove * lz * 0.1f;
+	if(deltaMove) {
+		x += deltaMove * lx * 0.1f;
+		y += deltaMove * ly * 0.1f;
+		z += deltaMove * lz * 0.1f;
+	}
+	if(deltaMove_side) {
+		x -= deltaMove_side * lz * 0.1f;
+		z += deltaMove_side * lx * 0.1f;
+	}
+
+	glutPostRedisplay();
 }
 
 void changeSize(int w, int h) {
@@ -90,10 +98,7 @@ void makeABlock(int side_index, int top_index, int bottom_index) {
 void renderScene(void) {
 	glEnable(GL_TEXTURE_2D);
 
-    if (deltaMove) {
 		computePos(deltaMove);
-        glutPostRedisplay();
-    }
 
  // Очистка буфера цвета и глубины.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
