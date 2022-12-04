@@ -1,10 +1,13 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
 #include <math.h>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/stb_image.h"
+#define STB_PERLIN_IMPLEMENTATION
+#include "../include/stb_perlin.h"
 
-GLuint texture[3];
+GLuint texture[4];
 
 void computePos(float deltaMove) {
 	if(deltaMove) {
@@ -95,10 +98,29 @@ void makeABlock(int side_index, int top_index, int bottom_index) {
 	glEnd();
 }
 
-void renderScene(void) {
-	glEnable(GL_TEXTURE_2D);
+void drawFlatWorld(int fieldSize) {
+	for (int i = -fieldSize / 2; i < fieldSize / 2; i++) {
+		for (int j = 0; j < 5; j++) {
+			for (int k = -fieldSize / 2; k < fieldSize / 2; k++) {
+				glPushMatrix();
+				glTranslatef(i, j, k);
+				glRotatef(rotate_block, 0, 1, 0);
 
-		computePos(deltaMove);
+				if(j == 0)
+					makeABlock(3, 3, 3);	// bedrock
+				else if(j > 3)
+					makeABlock(0, 1, 2);	// grass
+				else
+					makeABlock(2, 2, 2);	// dirt
+
+				glPopMatrix();
+			}
+		}
+	}
+}
+
+void renderScene(void) {
+	computePos(deltaMove);
 
  // Очистка буфера цвета и глубины.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -110,19 +132,7 @@ void renderScene(void) {
 		  0.0f, 1.0f, 0.0f);
  
 	int fieldSize = 30;
-
-	for (int i = -fieldSize / 2; i < fieldSize / 2; i++) {
-		for (int j = -fieldSize / 2; j < fieldSize / 2; j++) {
-			glPushMatrix();
-			glTranslatef(i, -5, -5 - j);
-			glRotatef(rotate_block, 0, 1, 0);
-
-			// makeABlock(0, 1, 2);	// grass
-			makeABlock(2, 2, 2);	// dirt
-				
-			glPopMatrix();
-		}
-	}
+	drawFlatWorld(fieldSize);
 
 	glutSwapBuffers();
 }
@@ -163,9 +173,17 @@ int main(int argc, char **argv) {
 	glutCreateWindow("Minecraft");
 
 	glEnable (GL_TEXTURE_2D);
+	glEnable (GL_DEPTH_TEST);
 	stbLoadTexture(&texture[0], "media/textures/grass_side.png", 4);
 	stbLoadTexture(&texture[1], "media/textures/grass_top.png", 4);
 	stbLoadTexture(&texture[2], "media/textures/dirt.png", 4);
+	stbLoadTexture(&texture[3], "media/textures/bedrock.png", 4);
+
+	// for (int i = 0; i < 5; i++)
+	// 	for (int j = 0; j < 5; j++)
+	// 		for (int k = 0; k < 5; k++)
+	// 			cout << stb_perlin_noise3_seed(i, j, k, 0, 0, 0, 8) << endl;
+	
 
 	glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
 	glutSetCursor(GLUT_CURSOR_NONE);			// Скрыть курсор

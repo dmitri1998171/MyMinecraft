@@ -18,7 +18,7 @@ inline float speed_left = 3.0;
 // координаты вектора направления движения камеры
 inline float lx = speed_left, ly = 0.0f, lz = -speed_front;
 // XZ позиция камеры
-inline float x = 0.0f, y = 0, z = 0.0f;
+inline float x = 0.0f, y = 10, z = 40.0f;
 
 //Ключи статуса камеры. Переменные инициализируются нулевыми значениями
 //когда клавиши не нажаты
