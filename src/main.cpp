@@ -1,6 +1,5 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
-#include <math.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/stb_image.h"

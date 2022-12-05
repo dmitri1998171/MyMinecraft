@@ -1,9 +1,13 @@
 #ifndef HEADER_HPP
 #define HEADER_HPP
 
-#include <GLUT/glut.h> 
-#include <math.h> 
+#ifndef __APPLE__
+#include <windows.h>
+#endif
+
 #include <iostream>
+#include <math.h> 
+#include "../include/glut.h" 
 using namespace std;
 
 
