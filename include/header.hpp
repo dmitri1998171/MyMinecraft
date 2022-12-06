@@ -35,4 +35,9 @@ inline int delta_y = -1;
 
 inline float rotate_block = 0;
 
+// переменные для вычисления количества кадров в секунду
+inline int frame;
+inline long time, timebase;
+inline char fps[5];
+
 #endif

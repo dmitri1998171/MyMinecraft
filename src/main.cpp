@@ -1,5 +1,6 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
+#include "../include/UI.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/dependencies/stb_image.h"
@@ -7,10 +8,7 @@
 #include "../include/dependencies/stb_perlin.h"
 
 GLuint texture[4];
-// переменные для вычисления количества кадров в секунду
-int frame;
-long time, timebase;
-char s[50];
+GLuint hud[4];
 
 void computePos(float deltaMove) {
 	if(deltaMove) {
@@ -122,71 +120,19 @@ void drawFlatWorld(int fieldSize) {
 	}
 }
 
+void drawInventory() {
+	// 188x20
+	int w = 188 * 2;	
+	int h = 20 * 2;	
 
-void setOrthographicProjection() {
-	//переключения режима проецирования
-	glMatrixMode(GL_PROJECTION);
-	//Сохраняем предыдущую матрицу, которая содержит
-        //параметры перспективной проекции
-	glPushMatrix();
-	//обнуляем матрицу
-	glLoadIdentity();
-	//устанавливаем 2D ортогональную проекцию
-	gluOrtho2D(0, WIDTH, HEIGHT, 0);
-	// возврата в режим обзора модели
-	glMatrixMode(GL_MODELVIEW);
-}
-
-void restorePerspectiveProjection() {
-	glMatrixMode(GL_PROJECTION);
-	//восстановить предыдущую матрицу проекции
-	glPopMatrix();
-	//вернуться в режим модели
-	glMatrixMode(GL_MODELVIEW);
-}
-
-void renderBitmapString(float x, float y, float z, void *font, char *string) {
-	char *c;
-	glRasterPos3f(x, y,z);
-	for (c=string; *c != '\0'; c++) {
-		glutBitmapCharacter(font, *c);
-	}
-}
-
-void renderSpacedBitmapString(float x, float y, int spacing, void *font, char *string) {
-	char *c;
-	int x1=x;
-
-	for (c=string; *c != '\0'; c++) {
-		glRasterPos2f(x1,y);
-		glutBitmapCharacter(font, *c);
-		x1 = x1 + glutBitmapWidth(font,*c) + spacing;
-	}
-}
-
-void renderStrokeFontString( float x, float y, float z, void *font, char *string) {
-	char *c;
-	glPushMatrix();
-	glTranslatef(x, y,z);
- 
-	for (c=string; *c != '\0'; c++) {
-		glutStrokeCharacter(font, *c);
-	}
- 
-	glPopMatrix();
-}
-
-
-// Вычисление количества кадров в секунду
-void fpsCalc() {
-	frame++;
- 
-	time=glutGet(GLUT_ELAPSED_TIME);
-	if (time - timebase > 1000) {
-		sprintf(s,"FPS:%4.2f", frame*1000.0 / (time-timebase));
-		timebase = time;
-		frame = 0;
-	}
+	glTranslatef((WIDTH / 2) - w / 2, HEIGHT - h, 0);
+	glBindTexture(GL_TEXTURE_2D, hud[0]);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 1); glVertex2f(0, h);
+		glTexCoord2f(1, 1); glVertex2f(w, h);
+		glTexCoord2f(1, 0); glVertex2f(w, 0);
+		glTexCoord2f(0, 0); glVertex2f(0, 0);
+	glEnd();
 }
 
 void renderScene(void) {
@@ -205,14 +151,10 @@ void renderScene(void) {
 	drawFlatWorld(fieldSize);
 
 	fpsCalc();
-
 	setOrthographicProjection(); 
-	glPushMatrix();
-	glLoadIdentity();
-	renderBitmapString(5, 15 ,0, GLUT_BITMAP_HELVETICA_12, s);
-	glPopMatrix();
+	renderBitmapString(5, 15, 0, GLUT_BITMAP_HELVETICA_12, fps);	// draw FPS
+	drawInventory();
 	restorePerspectiveProjection(); 
-
 
 	glutSwapBuffers();
 }
@@ -261,6 +203,8 @@ int main(int argc, char **argv) {
 	stbLoadTexture(&texture[1], "media/textures/grass_top.png", 4);
 	stbLoadTexture(&texture[2], "media/textures/dirt.png", 4);
 	stbLoadTexture(&texture[3], "media/textures/bedrock.png", 4);
+
+	stbLoadTexture(&hud[0], "media/textures/GUI/inventory.jpg", 4);
 
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)

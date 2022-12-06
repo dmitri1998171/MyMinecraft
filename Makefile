@@ -1,5 +1,5 @@
 BIN := bin/main
-SRC := src/main.cpp src/input.cpp
+SRC := src/main.cpp src/input.cpp src/UI.cpp
 CC := g++
 LIB := lib/glut32.lib
 LIB_PATH := -L/System/Library/Frameworks -Llib
