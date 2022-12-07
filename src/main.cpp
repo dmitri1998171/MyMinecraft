@@ -174,14 +174,6 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
 	}
 }
 
-// Mouse wheel callback routine.
-void mouseWheel(int wheel, int direction, int x, int y) {
-	(direction > 0) ? pointSize++ : pointSize--;
-	cout << pointSize << endl;
-
-   glutPostRedisplay();
-}  
-
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -222,7 +214,7 @@ int main(int argc, char **argv) {
 
 	glutPassiveMotionFunc(mouseMove);
 	glutMouseFunc(mouseButton);
-	// glutMouseWheelFunc(mouseWheel);
+	glutMouseWheelFunc(mouseWheel);
  
 	glutMainLoop();
  

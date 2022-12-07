@@ -1,9 +1,9 @@
 BIN := bin/main
 SRC := src/main.cpp src/input.cpp src/UI.cpp
 CC := g++
-LIB := lib/*
+LIB := lib/libfreeglut.a
 LIB_PATH := -L/System/Library/Frameworks -Llib
-WIN_LDFLAGS :=  -lopengl32 -lglu32
+WIN_LDFLAGS := -lopengl32 -lglu32 
 LDFLAGS := -framework GLUT -framework OpenGL -framework Cocoa 
 CFLAGS := -Wno-deprecated-declarations --std=c++17
 

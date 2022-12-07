@@ -7,8 +7,7 @@
 
 #include <iostream>
 #include <math.h> 
-#include "../include/dependencies/glut.h" 
-// #include "../include/dependencies/freeglut.h" 
+#include "../include/dependencies/freeglut.h" 
 using namespace std;
 
 

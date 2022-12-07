@@ -3,10 +3,50 @@
 
 void pressKey(unsigned char key, int x, int y) {
     switch (key) {
+// Escape
         case 27:
             exit(0);
             break;
         
+// Inventory selector
+		case 49:
+			invSelector = 0;
+			cout << "1" << endl;
+			break;
+		case 50:
+			invSelector = 1;
+			cout << "2" << endl;
+			break;
+		case 51:
+			invSelector = 2;
+			cout << "3" << endl;
+			break;
+		case 52:
+			invSelector = 3;
+			cout << "4" << endl;
+			break;
+		case 53:
+			invSelector = 4;
+			cout << "5" << endl;
+			break;
+		case 54:
+			invSelector = 5;
+			cout << "6" << endl;
+			break;
+		case 55:
+			invSelector = 6;
+			cout << "7" << endl;
+			break;
+		case 56:
+			invSelector = 7;
+			cout << "8" << endl;
+			break;
+		case 57:
+			invSelector = 8;
+			cout << "9" << endl;
+			break;
+
+// Moving
         case 119:       // W
             deltaMove = 0.5f;
             break;
@@ -18,10 +58,6 @@ void pressKey(unsigned char key, int x, int y) {
             break;
         case 100:       // D
             deltaMove_side = 0.5f;
-            break;
-        
-        case 114:       // R
-            rotate_block += 90.0f;
             break;
     }
 
@@ -77,4 +113,17 @@ void mouseButton(int button, int state, int x, int y) {
 	}
 }
 
+void mouseWheel(int wheel, int direction, int x, int y) {
+	if(direction > 0) 
+		invSelector++;
+	else 
+		invSelector--;
+	
+	if(invSelector > 8)
+		invSelector = 0;
 
+	if(invSelector < 0)
+		invSelector = 8;
+
+   glutPostRedisplay();
+}  
