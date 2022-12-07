@@ -7,8 +7,7 @@
 #define STB_PERLIN_IMPLEMENTATION
 #include "../include/dependencies/stb_perlin.h"
 
-GLuint texture[4];
-GLuint hud[4];
+
 
 void computePos(float deltaMove) {
 	if(deltaMove) {
@@ -120,21 +119,6 @@ void drawFlatWorld(int fieldSize) {
 	}
 }
 
-void drawInventory() {
-	// 188x20
-	int w = 188 * 2;	
-	int h = 20 * 2;	
-
-	glTranslatef((WIDTH / 2) - w / 2, HEIGHT - h, 0);
-	glBindTexture(GL_TEXTURE_2D, hud[0]);
-	glBegin(GL_QUADS);
-		glTexCoord2f(0, 1); glVertex2f(0, h);
-		glTexCoord2f(1, 1); glVertex2f(w, h);
-		glTexCoord2f(1, 0); glVertex2f(w, 0);
-		glTexCoord2f(0, 0); glVertex2f(0, 0);
-	glEnd();
-}
-
 void renderScene(void) {
 	computePos(deltaMove);
 
@@ -153,7 +137,10 @@ void renderScene(void) {
 	fpsCalc();
 	setOrthographicProjection(); 
 	renderBitmapString(5, 15, 0, GLUT_BITMAP_HELVETICA_12, fps);	// draw FPS
+	
 	drawInventory();
+	drawInventorySelector();
+
 	restorePerspectiveProjection(); 
 
 	glutSwapBuffers();
@@ -187,6 +174,14 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
 	}
 }
 
+// Mouse wheel callback routine.
+void mouseWheel(int wheel, int direction, int x, int y) {
+	(direction > 0) ? pointSize++ : pointSize--;
+	cout << pointSize << endl;
+
+   glutPostRedisplay();
+}  
+
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -198,6 +193,7 @@ int main(int argc, char **argv) {
 	glEnable (GL_DEPTH_TEST);		// тест глубины
 	// glEnable(GL_CULL_FACE);			// occlusion query
 	// glCullFace(GL_FRONT);
+	// glEnable(GLUT_MULTISAMPLE);
 
 	stbLoadTexture(&texture[0], "media/textures/grass_side.png", 4);
 	stbLoadTexture(&texture[1], "media/textures/grass_top.png", 4);
@@ -205,6 +201,7 @@ int main(int argc, char **argv) {
 	stbLoadTexture(&texture[3], "media/textures/bedrock.png", 4);
 
 	stbLoadTexture(&hud[0], "media/textures/GUI/inventory.jpg", 4);
+	stbLoadTexture(&hud[1], "media/textures/GUI/inventorySelector.png", 4);
 
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)
@@ -225,6 +222,7 @@ int main(int argc, char **argv) {
 
 	glutPassiveMotionFunc(mouseMove);
 	glutMouseFunc(mouseButton);
+	// glutMouseWheelFunc(mouseWheel);
  
 	glutMainLoop();
  

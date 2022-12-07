@@ -8,11 +8,14 @@
 #include <iostream>
 #include <math.h> 
 #include "../include/dependencies/glut.h" 
+// #include "../include/dependencies/freeglut.h" 
 using namespace std;
 
 
 #define WIDTH 800
 #define HEIGHT 600
+
+#define OFFSET 15
 
 // угол поворота камеры
 inline float angle = 0.0;
@@ -39,5 +42,15 @@ inline float rotate_block = 0;
 inline int frame;
 inline long time, timebase;
 inline char fps[5];
+
+// Size of inventory bar is 188x20	
+inline int invWidth = 188 * 2;
+inline int invHeight = 20 * 2;
+inline int invSelector = 0;	// current selected object from inventory
+
+inline GLuint texture[4];
+inline GLuint hud[4];
+
+inline int pointSize;
 
 #endif

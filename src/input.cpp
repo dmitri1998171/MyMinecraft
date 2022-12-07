@@ -67,15 +67,14 @@ void mouseMove(int x, int y) {
 }
  
 void mouseButton(int button, int state, int x, int y) {
-	// only start motion if the left button is pressed
 	if (button == GLUT_LEFT_BUTTON) {
- 
-		// when the button is released
 		if (state == GLUT_UP) {
-
+			cout << "Left mouse button click" << endl;
 		}
 		else  {// state = GLUT_DOWN
 
 		}
 	}
 }
+
+
