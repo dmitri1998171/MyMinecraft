@@ -16,6 +16,7 @@ void drawInventory() {
 void drawInventorySelector() {
 	int w = 24 * 2;	
 	int h = 24 * 2;
+	glPushMatrix();
 	glTranslatef((invWidth / 9) * invSelector, -5, 0);
 	glBindTexture(GL_TEXTURE_2D, hud[1]);
 	glBegin(GL_QUADS);
@@ -24,8 +25,8 @@ void drawInventorySelector() {
 		glTexCoord2f(1, 0); glVertex3f(w, 0, 1);
 		glTexCoord2f(0, 0); glVertex3f(0, 0, 1);
 	glEnd();
+	glPopMatrix();
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////
 

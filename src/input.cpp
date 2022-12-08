@@ -11,39 +11,30 @@ void pressKey(unsigned char key, int x, int y) {
 // Inventory selector
 		case 49:
 			invSelector = 0;
-			cout << "1" << endl;
 			break;
 		case 50:
 			invSelector = 1;
-			cout << "2" << endl;
 			break;
 		case 51:
 			invSelector = 2;
-			cout << "3" << endl;
 			break;
 		case 52:
 			invSelector = 3;
-			cout << "4" << endl;
 			break;
 		case 53:
 			invSelector = 4;
-			cout << "5" << endl;
 			break;
 		case 54:
 			invSelector = 5;
-			cout << "6" << endl;
 			break;
 		case 55:
 			invSelector = 6;
-			cout << "7" << endl;
 			break;
 		case 56:
 			invSelector = 7;
-			cout << "8" << endl;
 			break;
 		case 57:
 			invSelector = 8;
-			cout << "9" << endl;
 			break;
 
 // Moving

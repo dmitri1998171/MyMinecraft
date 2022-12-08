@@ -136,7 +136,11 @@ void renderScene(void) {
 
 	fpsCalc();
 	setOrthographicProjection(); 
-	renderBitmapString(5, 15, 0, GLUT_BITMAP_HELVETICA_12, fps);	// draw FPS
+
+	glDisable(GL_TEXTURE_2D);
+	renderBitmapString(5, 15, 0, GLUT_BITMAP_HELVETICA_12, fps);					// draw FPS
+	renderBitmapString(WIDTH / 2, HEIGHT / 2, 0, GLUT_BITMAP_TIMES_ROMAN_24, "+");	// draw crosshair
+	glEnable(GL_TEXTURE_2D);
 	
 	drawInventory();
 	drawInventorySelector();
@@ -194,6 +198,7 @@ int main(int argc, char **argv) {
 
 	stbLoadTexture(&hud[0], "media/textures/GUI/inventory.jpg", 4);
 	stbLoadTexture(&hud[1], "media/textures/GUI/inventorySelector.png", 4);
+	stbLoadTexture(&hud[2], "media/textures/GUI/crosshair.png", 4);
 
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)
