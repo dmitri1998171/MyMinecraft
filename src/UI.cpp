@@ -80,10 +80,10 @@ void renderStrokeFontString( float x, float y, float z, void *font, char *string
 void fpsCalc() {
 	frame++;
  
-	time=glutGet(GLUT_ELAPSED_TIME);
-	if (time - timebase > 1000) {
-		sprintf(fps,"FPS:%4.2f", frame*1000.0 / (time-timebase));
-		timebase = time;
+	_time=glutGet(GLUT_ELAPSED_TIME);
+	if (_time - timebase > 1000) {
+		sprintf(fps,"FPS:%4.2f", frame*1000.0 / (_time-timebase));
+		timebase = _time;
 		frame = 0;
 	}
 }

@@ -39,7 +39,7 @@ inline float rotate_block = 0;
 
 // переменные для вычисления количества кадров в секунду
 inline int frame;
-inline long time, timebase;
+inline long _time, timebase;
 inline char fps[5];
 
 // Size of inventory bar is 188x20	
