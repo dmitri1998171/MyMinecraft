@@ -7,8 +7,6 @@
 #define STB_PERLIN_IMPLEMENTATION
 #include "../include/dependencies/stb_perlin.h"
 
-
-
 void computePos(float deltaMove) {
 	if(deltaMove) {
 		x += deltaMove * lx * 0.1f;
@@ -134,10 +132,20 @@ void renderScene(void) {
 	int fieldSize = 30;
 	drawFlatWorld(fieldSize);
 
-	fpsCalc();
+	// glLineWidth(5);       // ширину линии
+    //                   // устанавливаем 1
+	// glBegin(GL_LINES);
+	// glColor3d(1,0,0);     // красный цвет
+	// glVertex3d(x,0,5); 
+	// glVertex3d(x,-5,15);
+	// glEnd();
+	// glColor3d(1,1,1);     // красный цвет
+
+//////////////////////////////////////////////////////////////////////////
 	setOrthographicProjection(); 
 
 	glDisable(GL_TEXTURE_2D);
+	fpsCalc();
 	renderBitmapString(5, 15, 0, GLUT_BITMAP_HELVETICA_12, fps);					// draw FPS
 	renderBitmapString(WIDTH / 2, HEIGHT / 2, 0, GLUT_BITMAP_TIMES_ROMAN_24, "+");	// draw crosshair
 	glEnable(GL_TEXTURE_2D);
@@ -146,6 +154,7 @@ void renderScene(void) {
 	drawInventorySelector();
 
 	restorePerspectiveProjection(); 
+//////////////////////////////////////////////////////////////////////////
 
 	glutSwapBuffers();
 }
@@ -175,6 +184,72 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
 	}
 	else {
 		cout << "ERROR: Can't load a texture!" << endl;
+	}
+}
+
+void renderMenu() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+
+	setOrthographicProjection(); 
+
+	// ///////////////////////////////////////////////////////
+
+	glColor3f(0, 255, 0);
+	glBegin(GL_LINES);
+	glVertex2f(WIDTH / 2, 0);
+	glVertex2f(WIDTH / 2, HEIGHT);
+	glEnd();
+
+	// -------------------------------------------------------
+
+	glBegin(GL_LINES);
+	glVertex2f(0, HEIGHT / 4);
+	glVertex2f(WIDTH, HEIGHT / 4);
+	glEnd();
+	
+	glBegin(GL_LINES);
+	glVertex2f(0, HEIGHT / 2);
+	glVertex2f(WIDTH, HEIGHT / 2);
+	glEnd();
+	
+	glBegin(GL_LINES);
+	glVertex2f(0, HEIGHT - (HEIGHT / 4));
+	glVertex2f(WIDTH, HEIGHT - (HEIGHT / 4));
+	glEnd();
+
+	// ///////////////////////////////////////////////////////
+
+	glTranslatef((WIDTH / 2) - (invWidth / 2), ( HEIGHT / 2) - (invHeight / 2), 0);
+	glColor3f(255, 0, 0);
+	renderBitmapString((invWidth / 2) - (2 * 15), (invHeight / 2) + (24 / 4), 0, GLUT_BITMAP_TIMES_ROMAN_24, "PLAY");
+	glColor3f(255, 255, 255);
+
+	glEnable(GL_TEXTURE_2D);
+	// glBindTexture(GL_TEXTURE_2D, hud[0]);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 1); glVertex2f(0, invHeight);
+		glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
+		glTexCoord2f(1, 0); glVertex2f(invWidth, 0);
+		glTexCoord2f(0, 0); glVertex2f(0, 0);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	
+	glutSwapBuffers();
+}
+
+void render() {
+	switch (gameState) {
+	case MAIN_MENU:
+		renderMenu();
+		break;
+	case GAME:
+		renderScene();
+		break;
+	case PAUSE:
+		// renderMenu();
+		break;
 	}
 }
 
@@ -209,7 +284,7 @@ int main(int argc, char **argv) {
 	glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
 	glutSetCursor(GLUT_CURSOR_NONE);			// Скрыть курсор
 
-	glutDisplayFunc(renderScene);
+	glutDisplayFunc(render);
     glutReshapeFunc(changeSize);
 
 	glutIgnoreKeyRepeat(1);

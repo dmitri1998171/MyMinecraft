@@ -23,8 +23,8 @@ inline float speed_left = 3.0;
 
 // координаты вектора направления движения камеры
 inline float lx = speed_left, ly = 0.0f, lz = -speed_front;
-// XZ позиция камеры
-inline float x = 0.0f, y = 10, z = 40.0f;
+// позиция камеры
+inline float x = 0.0f, y = 0, z = 0.0f;
 
 //Ключи статуса камеры. Переменные инициализируются нулевыми значениями
 //когда клавиши не нажаты
@@ -51,5 +51,13 @@ inline GLuint texture[4];
 inline GLuint hud[4];
 
 inline int pointSize;
+
+enum MENU {
+    MAIN_MENU = 0,
+    GAME,
+    PAUSE
+};
+
+inline int gameState = MAIN_MENU;
 
 #endif
