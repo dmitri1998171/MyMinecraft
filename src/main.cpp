@@ -175,11 +175,15 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
 		glBindTexture(GL_TEXTURE_2D, *tex);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		
+		// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER );
+		// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+		
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
 		gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
 		stbi_image_free( image );
 	}
 	else {
@@ -193,49 +197,41 @@ void renderMenu() {
 
 	setOrthographicProjection(); 
 
-	// ///////////////////////////////////////////////////////
+	// drawDebugLines();
 
-	glColor3f(0, 255, 0);
-	glBegin(GL_LINES);
-	glVertex2f(WIDTH / 2, 0);
-	glVertex2f(WIDTH / 2, HEIGHT);
-	glEnd();
-
-	// -------------------------------------------------------
-
-	glBegin(GL_LINES);
-	glVertex2f(0, HEIGHT / 4);
-	glVertex2f(WIDTH, HEIGHT / 4);
-	glEnd();
-	
-	glBegin(GL_LINES);
-	glVertex2f(0, HEIGHT / 2);
-	glVertex2f(WIDTH, HEIGHT / 2);
-	glEnd();
-	
-	glBegin(GL_LINES);
-	glVertex2f(0, HEIGHT - (HEIGHT / 4));
-	glVertex2f(WIDTH, HEIGHT - (HEIGHT / 4));
-	glEnd();
-
-	// ///////////////////////////////////////////////////////
-
+	glPushMatrix();
 	glTranslatef((WIDTH / 2) - (invWidth / 2), ( HEIGHT / 2) - (invHeight / 2), 0);
 	glColor3f(255, 0, 0);
 	renderBitmapString((invWidth / 2) - (2 * 15), (invHeight / 2) + (24 / 4), 0, GLUT_BITMAP_TIMES_ROMAN_24, "PLAY");
-	glColor3f(255, 255, 255);
 
-	glEnable(GL_TEXTURE_2D);
+// Play button
 	// glBindTexture(GL_TEXTURE_2D, hud[0]);
+	glColor3f(255, 255, 255);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 1); glVertex2f(0, invHeight);
 		glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
 		glTexCoord2f(1, 0); glVertex2f(invWidth, 0);
 		glTexCoord2f(0, 0); glVertex2f(0, 0);
 	glEnd();
+	glPopMatrix();
+
+// Background
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();
+	glColor3f(255, 255, 255);
+	
+	glBindTexture(GL_TEXTURE_2D, texture[2]);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 1); glVertex2f(0, HEIGHT);
+		glTexCoord2f(1, 1); glVertex2f(WIDTH, HEIGHT);
+		glTexCoord2f(1, 0); glVertex2f(WIDTH, 0);
+		glTexCoord2f(0, 0); glVertex2f(0, 0);
+	glEnd();
+	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 
-	
+
+	restorePerspectiveProjection(); 
 	glutSwapBuffers();
 }
 
@@ -243,12 +239,15 @@ void render() {
 	switch (gameState) {
 	case MAIN_MENU:
 		renderMenu();
+		glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
 		break;
 	case GAME:
 		renderScene();
+		glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
 		break;
 	case PAUSE:
 		// renderMenu();
+		glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
 		break;
 	}
 }
@@ -282,7 +281,6 @@ int main(int argc, char **argv) {
 	
 
 	glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
-	glutSetCursor(GLUT_CURSOR_NONE);			// Скрыть курсор
 
 	glutDisplayFunc(render);
     glutReshapeFunc(changeSize);

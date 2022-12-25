@@ -87,3 +87,34 @@ void fpsCalc() {
 		frame = 0;
 	}
 }
+
+
+
+void drawDebugLines() {
+	// ///////// Debug lines /////////////////////////////////
+
+	glColor3f(0, 255, 0);
+	glBegin(GL_LINES);
+	glVertex2f(WIDTH / 2, 0);
+	glVertex2f(WIDTH / 2, HEIGHT);
+	glEnd();
+
+	// -------------------------------------------------------
+
+	glBegin(GL_LINES);
+	glVertex2f(0, HEIGHT / 4);
+	glVertex2f(WIDTH, HEIGHT / 4);
+	glEnd();
+	
+	glBegin(GL_LINES);
+	glVertex2f(0, HEIGHT / 2);
+	glVertex2f(WIDTH, HEIGHT / 2);
+	glEnd();
+	
+	glBegin(GL_LINES);
+	glVertex2f(0, HEIGHT - (HEIGHT / 4));
+	glVertex2f(WIDTH, HEIGHT - (HEIGHT / 4));
+	glEnd();
+
+	// ///////////////////////////////////////////////////////
+}
