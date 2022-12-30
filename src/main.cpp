@@ -9,12 +9,13 @@
 #define STB_PERLIN_IMPLEMENTATION
 #include "../include/dependencies/stb_perlin.h"
 
-Button PlayButton;
-Button ExitButton;
+map<string, Button*> buttons;
 
 void clickCheck(int x, int y) {
-	if(PlayButton.isClicked(x, y))
-		cout << "PlayButton was clicked!" << endl;
+	for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
+		if(it->second->isClicked(x, y))
+			cout << it->first << " was clicked!" << endl;
+	}
 }
 
 void computePos(float deltaMove) {
@@ -184,13 +185,14 @@ void renderMenu() {
 
 	// drawDebugLines();
 		
-	PlayButton.setButtonColor(0, 255, 0);
-	PlayButton.addText("PLAY", 255, 255, 255);
-	PlayButton.draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
 	
-	ExitButton.setButtonColor(255, 0, 0);
-	ExitButton.addText("EXIT", 255, 255, 255);
-	ExitButton.draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
+	buttons["play"]->setButtonColor(0, 255, 0);
+	buttons["play"]->addText("PLAY", 255, 255, 255);
+	buttons["play"]->draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
+	
+	buttons["exit"]->setButtonColor(255, 0, 0);
+	buttons["exit"]->addText("EXIT", 255, 255, 255);
+	buttons["exit"]->draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
 
 	drawBackground();
 
@@ -221,7 +223,10 @@ int main(int argc, char **argv) {
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow("Minecraft");
-	
+
+	buttons["play"] = new Button;
+	buttons["exit"] = new Button;
+
 	glEnable (GL_TEXTURE_2D);		// Работа с текстурами
 	glEnable (GL_DEPTH_TEST);		// тест глубины
 	// glEnable(GL_CULL_FACE);			// occlusion query

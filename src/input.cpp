@@ -99,7 +99,6 @@ void mouseButton(int button, int state, int x, int y) {
 			// cout << "Left mouse button click" << endl;
 		}
 		else  {// state = GLUT_DOWN
-			// cout << "Left mouse button click" << endl;
 			clickCheck(x, y);
 		}
 	}

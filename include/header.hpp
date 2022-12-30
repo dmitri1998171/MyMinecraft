@@ -6,6 +6,7 @@
 #endif
 
 #include <iostream>
+#include <map>
 #include <math.h> 
 #include "../include/dependencies/freeglut.h" 
 using namespace std;
