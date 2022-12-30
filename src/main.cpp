@@ -1,6 +1,7 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
 #include "../include/UI.hpp"
+#include "../include/HUD.hpp"
 #include "../include/Button.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -124,9 +125,7 @@ void drawFlatWorld(int fieldSize) {
 void renderScene(void) {
 	computePos(deltaMove);
 
- // Очистка буфера цвета и глубины.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// обнулить трансформацию
 	glLoadIdentity();
 
     gluLookAt(x, y, z,
@@ -136,29 +135,7 @@ void renderScene(void) {
 	int fieldSize = 30;
 	drawFlatWorld(fieldSize);
 
-	// glLineWidth(5);       // ширину линии
-    //                   // устанавливаем 1
-	// glBegin(GL_LINES);
-	// glColor3d(1,0,0);     // красный цвет
-	// glVertex3d(x,0,5); 
-	// glVertex3d(x,-5,15);
-	// glEnd();
-	// glColor3d(1,1,1);     // красный цвет
-
-//////////////////////////////////////////////////////////////////////////
-	setOrthographicProjection(); 
-
-	glDisable(GL_TEXTURE_2D);
-	fpsCalc();
-	renderBitmapString(5, 15, 0, GLUT_BITMAP_HELVETICA_12, fps);					// draw FPS
-	renderBitmapString(WIDTH / 2, HEIGHT / 2, 0, GLUT_BITMAP_TIMES_ROMAN_24, "+");	// draw crosshair
-	glEnable(GL_TEXTURE_2D);
-	
-	drawInventory();
-	drawInventorySelector();
-
-	restorePerspectiveProjection(); 
-//////////////////////////////////////////////////////////////////////////
+	drawHUD();
 
 	glutSwapBuffers();
 }
@@ -198,38 +175,19 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
 void renderMenu() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-
 	setOrthographicProjection(); 
 
 	// drawDebugLines();
-
-	// glPushMatrix();
-	// renderBitmapString(WIDTH / 2, HEIGHT / 2, 0, GLUT_BITMAP_TIMES_ROMAN_24, "PLAY");
-	// renderBitmapString(BUTTONS_POS_X + BUTTON_TEXT_OFFSET_X, (HEIGHT / 4) + (invHeight / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, "EXIT");
-	// glPopMatrix();
 		
-        PlayButton.setButtonColor(0, 255, 0);
-        PlayButton.addText("PLAY", 255, 255, 255);
-		PlayButton.draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
-        
-		ExitButton.setButtonColor(255, 0, 0);
-        ExitButton.addText("EXIT", 255, 255, 255);
-		ExitButton.draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
-
-// Background
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();
-	glColor3f(255, 255, 255);
+	PlayButton.setButtonColor(0, 255, 0);
+	PlayButton.addText("PLAY", 255, 255, 255);
+	PlayButton.draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
 	
-	glBindTexture(GL_TEXTURE_2D, texture[2]);
-	glBegin(GL_QUADS);
-		glTexCoord2f(0, 1); glVertex2f(0, HEIGHT);
-		glTexCoord2f(1, 1); glVertex2f(WIDTH, HEIGHT);
-		glTexCoord2f(1, 0); glVertex2f(WIDTH, 0);
-		glTexCoord2f(0, 0); glVertex2f(0, 0);
-	glEnd();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
+	ExitButton.setButtonColor(255, 0, 0);
+	ExitButton.addText("EXIT", 255, 255, 255);
+	ExitButton.draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
+
+	drawBackground();
 
 	restorePerspectiveProjection(); 
 	glutSwapBuffers();

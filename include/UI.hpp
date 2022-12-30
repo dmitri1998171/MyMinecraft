@@ -8,5 +8,7 @@ void restorePerspectiveProjection();
 void renderBitmapString(float x, float y, float z, void *font, const char *string);
 void renderStrokeFontString( float x, float y, float z, void *font, const char *string);
 void fpsCalc();
+void drawBackground();
+
 void drawDebugLines();
 #endif

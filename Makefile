@@ -1,5 +1,5 @@
 BIN := bin/main
-SRC := src/main.cpp src/input.cpp src/UI.cpp
+SRC := src/main.cpp src/input.cpp src/UI.cpp src/Button.cpp src/HUD.cpp
 CC := g++
 CFLAGS := -Wno-deprecated-declarations --std=c++17
 
