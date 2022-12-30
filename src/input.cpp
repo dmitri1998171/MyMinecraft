@@ -96,10 +96,11 @@ void mouseMove(int x, int y) {
 void mouseButton(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON) {
 		if (state == GLUT_UP) {
-			cout << "Left mouse button click" << endl;
+			// cout << "Left mouse button click" << endl;
 		}
 		else  {// state = GLUT_DOWN
-
+			// cout << "Left mouse button click" << endl;
+			clickCheck(x, y);
 		}
 	}
 }

@@ -12,6 +12,11 @@
 Button PlayButton;
 Button ExitButton;
 
+void clickCheck(int x, int y) {
+	if(PlayButton.isClicked(x, y))
+		cout << "PlayButton was clicked!" << endl;
+}
+
 void computePos(float deltaMove) {
 	if(deltaMove) {
 		x += deltaMove * lx * 0.1f;

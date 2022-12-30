@@ -40,4 +40,5 @@ class Button {
         void setTextColor(int r, int g, int b);
         void addText(string text, int r, int g, int b);
         void draw(int x, int y);
+        bool isClicked(int x, int y);
 };

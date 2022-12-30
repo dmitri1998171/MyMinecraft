@@ -44,3 +44,11 @@ void Button::draw(int x, int y) {
         glEnd();
     glPopMatrix();
 }
+
+bool Button::isClicked(int x, int y) {
+    if(x > size.x && x < (size.x + size.w))
+        if(y > size.y && y < (size.y + size.h))
+            return true;
+    
+    return false;
+}

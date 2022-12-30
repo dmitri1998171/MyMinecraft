@@ -66,4 +66,5 @@ enum MENU {
 
 inline int gameState = MAIN_MENU;
 
+void clickCheck(int x, int y);
 #endif
