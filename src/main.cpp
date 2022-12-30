@@ -200,19 +200,33 @@ void renderMenu() {
 	// drawDebugLines();
 
 	glPushMatrix();
+	glColor3f(255, 255, 255);
 	glTranslatef((WIDTH / 2) - (invWidth / 2), ( HEIGHT / 2) - (invHeight / 2), 0);
-	glColor3f(255, 0, 0);
-	renderBitmapString((invWidth / 2) - (2 * 15), (invHeight / 2) + (24 / 4), 0, GLUT_BITMAP_TIMES_ROMAN_24, "PLAY");
+	renderBitmapString((invWidth / 2) - (2 * 15), (invHeight / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, "PLAY");
+	renderBitmapString((invWidth / 2) - (2 * OFFSET), (HEIGHT / 4) + (invHeight / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, "EXIT");
 
 // Play button
-	// glBindTexture(GL_TEXTURE_2D, hud[0]);
-	glColor3f(255, 255, 255);
-	glBegin(GL_QUADS);
-		glTexCoord2f(0, 1); glVertex2f(0, invHeight);
-		glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
-		glTexCoord2f(1, 0); glVertex2f(invWidth, 0);
-		glTexCoord2f(0, 0); glVertex2f(0, 0);
-	glEnd();
+		// glBindTexture(GL_TEXTURE_2D, hud[0]);
+		glColor3f(0, 255, 0);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 1); glVertex2f(0, invHeight);
+			glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
+			glTexCoord2f(1, 0); glVertex2f(invWidth, 0);
+			glTexCoord2f(0, 0); glVertex2f(0, 0);
+		glEnd();
+
+	// Exit button
+		// glBindTexture(GL_TEXTURE_2D, hud[0]);
+		glColor3f(255, 0, 0);
+		glTranslatef(0, HEIGHT / 4, 0);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 1); glVertex2f(0, invHeight);
+			glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
+			glTexCoord2f(1, 0); glVertex2f(invWidth, 0);
+			glTexCoord2f(0, 0); glVertex2f(0, 0);
+		glEnd();
 	glPopMatrix();
 
 // Background
@@ -229,7 +243,6 @@ void renderMenu() {
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
-
 
 	restorePerspectiveProjection(); 
 	glutSwapBuffers();

@@ -15,6 +15,7 @@ using namespace std;
 #define HEIGHT 600
 
 #define OFFSET 15
+#define HEIGHT_OFFSET 6
 
 // угол поворота камеры
 inline float angle = 0.0;
