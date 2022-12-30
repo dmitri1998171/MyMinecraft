@@ -1,11 +1,15 @@
 #include "../include/header.hpp"
 #include "../include/input.hpp"
 #include "../include/UI.hpp"
+#include "../include/Button.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/dependencies/stb_image.h"
 #define STB_PERLIN_IMPLEMENTATION
 #include "../include/dependencies/stb_perlin.h"
+
+Button PlayButton;
+Button ExitButton;
 
 void computePos(float deltaMove) {
 	if(deltaMove) {
@@ -199,35 +203,18 @@ void renderMenu() {
 
 	// drawDebugLines();
 
-	glPushMatrix();
-	glColor3f(255, 255, 255);
-	glTranslatef((WIDTH / 2) - (invWidth / 2), ( HEIGHT / 2) - (invHeight / 2), 0);
-	renderBitmapString((invWidth / 2) - (2 * 15), (invHeight / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, "PLAY");
-	renderBitmapString((invWidth / 2) - (2 * OFFSET), (HEIGHT / 4) + (invHeight / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, "EXIT");
-
-// Play button
-		// glBindTexture(GL_TEXTURE_2D, hud[0]);
-		glColor3f(0, 255, 0);
-
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 1); glVertex2f(0, invHeight);
-			glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
-			glTexCoord2f(1, 0); glVertex2f(invWidth, 0);
-			glTexCoord2f(0, 0); glVertex2f(0, 0);
-		glEnd();
-
-	// Exit button
-		// glBindTexture(GL_TEXTURE_2D, hud[0]);
-		glColor3f(255, 0, 0);
-		glTranslatef(0, HEIGHT / 4, 0);
-
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 1); glVertex2f(0, invHeight);
-			glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
-			glTexCoord2f(1, 0); glVertex2f(invWidth, 0);
-			glTexCoord2f(0, 0); glVertex2f(0, 0);
-		glEnd();
-	glPopMatrix();
+	// glPushMatrix();
+	// renderBitmapString(WIDTH / 2, HEIGHT / 2, 0, GLUT_BITMAP_TIMES_ROMAN_24, "PLAY");
+	// renderBitmapString(BUTTONS_POS_X + BUTTON_TEXT_OFFSET_X, (HEIGHT / 4) + (invHeight / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, "EXIT");
+	// glPopMatrix();
+		
+        PlayButton.setButtonColor(0, 255, 0);
+        PlayButton.addText("PLAY", 255, 255, 255);
+		PlayButton.draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
+        
+		ExitButton.setButtonColor(255, 0, 0);
+        ExitButton.addText("EXIT", 255, 255, 255);
+		ExitButton.draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
 
 // Background
 	glEnable(GL_TEXTURE_2D);

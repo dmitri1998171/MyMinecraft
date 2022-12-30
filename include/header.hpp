@@ -10,12 +10,17 @@
 #include "../include/dependencies/freeglut.h" 
 using namespace std;
 
-
 #define WIDTH 800
 #define HEIGHT 600
 
 #define OFFSET 15
 #define HEIGHT_OFFSET 6
+#define BUTTONS_POS_X (WIDTH / 2) - (invWidth / 2)
+#define PLAYBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2)
+#define EXITBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2) + (HEIGHT / 4)
+#define BUTTON_TEXT_OFFSET_X (invWidth / 2) - (2 * OFFSET)
+#define BUTTON_TEXT_OFFSET_Y 
+
 
 // угол поворота камеры
 inline float angle = 0.0;

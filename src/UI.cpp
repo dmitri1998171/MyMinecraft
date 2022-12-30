@@ -56,20 +56,20 @@ void restorePerspectiveProjection() {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void renderBitmapString(float x, float y, float z, void *font, char *string) {
+void renderBitmapString(float x, float y, float z, void *font, const char *string) {
 	char *c;
 	glRasterPos3f(x, y,z);
-	for (c=string; *c != '\0'; c++) {
+	for (c=strdup(string); *c != '\0'; c++) {
 		glutBitmapCharacter(font, *c);
 	}
 }
 
-void renderStrokeFontString( float x, float y, float z, void *font, char *string) {
+void renderStrokeFontString( float x, float y, float z, void *font, const char *string) {
 	char *c;
 	glPushMatrix();
 	glTranslatef(x, y,z);
  
-	for (c=string; *c != '\0'; c++) {
+	for (c=strdup(string); *c != '\0'; c++) {
 		glutStrokeCharacter(font, *c);
 	}
  
