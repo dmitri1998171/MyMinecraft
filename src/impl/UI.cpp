@@ -1,5 +1,5 @@
-#include "../include/header.hpp"
-#include "../include/UI.hpp"
+#include "../../include/header.hpp"
+#include "../../include/UI.hpp"
 
 
 void setOrthographicProjection() {

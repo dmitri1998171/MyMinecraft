@@ -1,5 +1,5 @@
-#include "../include/header.hpp"
-#include "../include/input.hpp"
+#include "../../include/header.hpp"
+#include "../../include/input.hpp"
 
 void pressKey(unsigned char key, int x, int y) {
     switch (key) {

@@ -1,6 +1,8 @@
-#include "header.hpp"
-#include "UI.hpp"
+#ifndef HUD_HPP
+#define HUD_HPP
 
 void drawHUD();
 void drawInventory();
 void drawInventorySelector();
+
+#endif

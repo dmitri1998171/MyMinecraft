@@ -1,5 +1,6 @@
-#include "../include/header.hpp"
-#include "../include/HUD.hpp"
+#include "../../include/header.hpp"
+#include "../../include/HUD.hpp"
+#include "../../include/UI.hpp"
 
 void drawHUD() {
     setOrthographicProjection(); 

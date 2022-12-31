@@ -1,4 +1,5 @@
-#include "header.hpp"
+#ifndef BUTTON_HPP
+#define BUTTON_HPP
 
 struct _size {
     int x;
@@ -20,19 +21,8 @@ class Button {
         struct _color text_color;
         string text;
 
-        void move(int x, int y) {
-            size.x = x;
-            size.y = y;
-
-            glTranslatef(size.x, size.y, 0);
-        }
-
-        void drawText() {
-            if(text.size() > 0) {
-	            glColor3f(text_color.r, text_color.g, text_color.b);
-	            renderBitmapString((size.w / 2) - (2 * OFFSET), (size.h / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, text.c_str());
-            }
-        }
+        void move(int x, int y);
+        void drawText();
 
     public:
         Button();
@@ -42,3 +32,5 @@ class Button {
         void draw(int x, int y);
         bool isClicked(int x, int y);
 };
+
+#endif

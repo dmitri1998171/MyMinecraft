@@ -1,5 +1,12 @@
 BIN := bin/main
-SRC := src/main.cpp src/input.cpp src/UI.cpp src/Button.cpp src/HUD.cpp
+
+SRC := $(wildcard src/impl/*.cpp) 
+# REL_SRC := $(patsubst src/imp/%, %, $(SRC))
+
+OBJECTS := $(SRC:.cpp=.o)
+OBJECTS := $(patsubst src/impl/%, %, $(OBJECTS))
+OBJECTS := $(addprefix obj/, $(OBJECTS))
+
 CC := g++
 CFLAGS := -Wno-deprecated-declarations --std=c++17
 
@@ -10,14 +17,20 @@ LIB_PATH := -L/System/Library/Frameworks -Llib
 WIN_LDFLAGS := -lopengl32 -lglu32
 LDFLAGS := -framework GLUT -framework OpenGL -framework Cocoa 
 
-all:
-	clear && $(CC) $(SRC) $(LIB_PATH) $(LDFLAGS) $(CFLAGS) -o $(BIN)
+all: win64
 	
-win32:
-	$(CC) $(SRC) $(LIB) $(WIN_LDFLAGS) $(CFLAGS) -o $(BIN).exe
+win32: 
+	$(CC) $(SRC) $(LIB) $(WIN_LDFLAGS) $(CFLAGS) 
 
-win64:
-	$(CC) $(SRC) $(LIB_64) $(WIN_LDFLAGS) $(CFLAGS) -o $(BIN).exe
+obj/%.o: src/imp/%.cpp 
+	$(CC) -c $< $(CFLAGS) -o $(patsubst src/impl/%, %, $@)
+
+obj/main.o: src/main.cpp
+	$(CC) $(CFLAGS) -c src/main.cpp -o obj/main.o
+
+win64: $(OBJECTS) obj/main.o
+	$(CC) $(CFLAGS) $(OBJECTS) obj/main.o $(LIB_64) $(WIN_LDFLAGS) -o $(BIN).exe
 
 clean:
 	rm -rf $(BIN)
+

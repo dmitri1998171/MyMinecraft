@@ -218,6 +218,7 @@ void render() {
 }
 
 int main(int argc, char **argv) {
+	cout << "HELLO WORLD" << endl;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);

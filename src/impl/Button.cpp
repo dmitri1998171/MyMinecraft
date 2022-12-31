@@ -1,5 +1,6 @@
-#include "../include/UI.hpp"
-#include "../include/Button.hpp"
+#include "../../include/header.hpp"
+#include "../../include/Button.hpp"
+#include "../../include/UI.hpp"
 
 Button::Button() {
     size.x = 0;
@@ -11,6 +12,20 @@ Button::Button() {
 
     setButtonColor(255, 255, 255);
     setTextColor(255, 255, 255);
+}
+
+void Button::move(int x, int y) {
+    size.x = x;
+    size.y = y;
+
+    glTranslatef(size.x, size.y, 0);
+}
+
+void Button::drawText() {
+    if(text.size() > 0) {
+        glColor3f(text_color.r, text_color.g, text_color.b);
+        renderBitmapString((size.w / 2) - (2 * OFFSET), (size.h / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, text.c_str());
+    }
 }
 
 void Button::setButtonColor(int r, int g, int b) {
