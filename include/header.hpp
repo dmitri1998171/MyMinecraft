@@ -67,5 +67,19 @@ enum MENU {
 
 inline int gameState = MAIN_MENU;
 
+enum TEXTURES {
+    GRASS_SIDE = 0,
+    GRASS_TOP,
+    DIRT,
+    BEDROCK
+};
+
+enum HUD_TEXTURES {
+    INVENTORY = 0,
+    INV_SELECTOR,
+    CROSSHAIR
+};
+
 void clickCheck(int x, int y);
+
 #endif

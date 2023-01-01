@@ -64,7 +64,7 @@ void drawBackground() {
 	glPushMatrix();
 	glColor3f(255, 255, 255);
 	
-	glBindTexture(GL_TEXTURE_2D, texture[2]);
+	glBindTexture(GL_TEXTURE_2D, texture[DIRT]);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 1); glVertex2f(0, HEIGHT);
 		glTexCoord2f(1, 1); glVertex2f(WIDTH, HEIGHT);

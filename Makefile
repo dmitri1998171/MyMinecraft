@@ -22,7 +22,7 @@ all: win64
 win32: 
 	$(CC) $(SRC) $(LIB) $(WIN_LDFLAGS) $(CFLAGS) 
 
-obj/%.o: src/imp/%.cpp 
+obj/%.o: src/impl/%.cpp 
 	$(CC) -c $< $(CFLAGS) -o $(patsubst src/impl/%, %, $@)
 
 obj/main.o: src/main.cpp

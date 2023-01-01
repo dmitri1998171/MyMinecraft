@@ -11,6 +11,7 @@
 
 map<string, Button*> buttons;
 
+
 void clickCheck(int x, int y) {
 	for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
 		if(it->second->isClicked(x, y))
@@ -153,7 +154,7 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
 		JPEG-file = 4  
 	*/
 	int width = 0, height = 0, channels = 0;
-
+		
 	stbi_set_flip_vertically_on_load(true);  
 	stbi_uc *image = stbi_load( filename, &width, &height, &channels, req_channels );
 
@@ -218,7 +219,6 @@ void render() {
 }
 
 int main(int argc, char **argv) {
-	cout << "HELLO WORLD" << endl;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
@@ -234,14 +234,14 @@ int main(int argc, char **argv) {
 	// glCullFace(GL_FRONT);
 	// glEnable(GLUT_MULTISAMPLE);
 
-	stbLoadTexture(&texture[0], "media/textures/grass_side.png", 4);
-	stbLoadTexture(&texture[1], "media/textures/grass_top.png", 4);
-	stbLoadTexture(&texture[2], "media/textures/dirt.png", 4);
-	stbLoadTexture(&texture[3], "media/textures/bedrock.png", 4);
+	stbLoadTexture(&texture[GRASS_SIDE], "media/textures/grass_side.png", 4);
+	stbLoadTexture(&texture[GRASS_TOP], "media/textures/grass_top.png", 4);
+	stbLoadTexture(&texture[DIRT], "media/textures/dirt.png", 4);
+	stbLoadTexture(&texture[BEDROCK], "media/textures/bedrock.png", 4);
 
-	stbLoadTexture(&hud[0], "media/textures/GUI/inventory.jpg", 4);
-	stbLoadTexture(&hud[1], "media/textures/GUI/inventorySelector.png", 4);
-	stbLoadTexture(&hud[2], "media/textures/GUI/crosshair.png", 4);
+	stbLoadTexture(&hud[INVENTORY], "media/textures/GUI/inventory.jpg", 4);
+	stbLoadTexture(&hud[INV_SELECTOR], "media/textures/GUI/inventorySelector.png", 4);
+	stbLoadTexture(&hud[CROSSHAIR], "media/textures/GUI/crosshair.png", 4);
 
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)
