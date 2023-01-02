@@ -14,6 +14,9 @@ using namespace std;
 #define WIDTH 800
 #define HEIGHT 600
 
+#define TITLE_W 273
+#define TITLE_H 44
+
 #define OFFSET 15
 #define HEIGHT_OFFSET 6
 #define BUTTONS_POS_X (WIDTH / 2) - (invWidth / 2)
@@ -56,7 +59,7 @@ inline int invHeight = 20 * 2;
 inline int invSelector = 0;	// current selected object from inventory
 
 inline GLuint texture[4];
-inline GLuint hud[4];
+inline GLuint ui[4];
 
 inline int pointSize;
 
@@ -78,7 +81,8 @@ enum TEXTURES {
 enum HUD_TEXTURES {
     INVENTORY = 0,
     INV_SELECTOR,
-    CROSSHAIR
+    MAIN_MENU_BG,
+    TITLE
 };
 
 void buttonClickCheck(int x, int y);

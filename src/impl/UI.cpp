@@ -75,6 +75,42 @@ void drawBackground(GLuint *texture) {
 	glDisable(GL_TEXTURE_2D);
 }
 
+void drawTitle() {
+	int w = 273;
+	int h = 44;
+	
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();
+	glColor3f(255, 255, 255);
+	glTranslatef((WIDTH / 2) - (w / 2), (HEIGHT / 4) - (h / 2), 0);
+
+	glBindTexture(GL_TEXTURE_2D, ui[TITLE]);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 0); glVertex2f(0, h);
+		glTexCoord2f(1, 0); glVertex2f(w, h);
+		glTexCoord2f(1, 1); glVertex2f(w, 0);
+		glTexCoord2f(0, 1); glVertex2f(0, 0);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+}
+
+void drawTexture(GLuint *texture, int w, int h, int x, int y) {
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();
+	glColor3f(255, 255, 255);
+	glTranslatef(x, y, 0);
+
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 0); glVertex2f(0, h);
+		glTexCoord2f(1, 0); glVertex2f(w, h);
+		glTexCoord2f(1, 1); glVertex2f(w, 0);
+		glTexCoord2f(0, 1); glVertex2f(0, 0);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+}
 
 void drawDebugLines() {
 	// ///////// Debug lines /////////////////////////////////

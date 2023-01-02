@@ -197,12 +197,12 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-		gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		
 		stbi_image_free( image );
 	}
 	else {
-		cout << "ERROR: Can't load a texture!" << endl;
+		cout << "ERROR: Can't load " << filename << " texture!" << endl;
 	}
 }
 
@@ -211,12 +211,14 @@ void renderMenu() {
 	glLoadIdentity();
 	setOrthographicProjection(); 
 
-	// drawDebugLines();
+	drawDebugLines();
 		
+	// drawTitle();
+	drawTexture(&ui[TITLE], TITLE_W, TITLE_H, (WIDTH / 2) - (TITLE_W / 2), (HEIGHT / 4) - (TITLE_H / 2));
 	buttons["play"]->draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
 	buttons["exit"]->draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
 
-	drawBackground(&texture[GRASS_SIDE]);
+	drawBackground(&ui[MAIN_MENU_BG]);
 
 	restorePerspectiveProjection(); 
 	glutSwapBuffers();
@@ -274,21 +276,25 @@ int main(int argc, char **argv) {
 
 	createButtons();
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable (GL_TEXTURE_2D);		// Работа с текстурами
 	glEnable (GL_DEPTH_TEST);		// тест глубины
 	// glEnable(GL_CULL_FACE);			// occlusion query
 	// glCullFace(GL_FRONT);
 	// glEnable(GLUT_MULTISAMPLE);
 
+
 	stbLoadTexture(&texture[GRASS_SIDE], "media/textures/grass_side.png", 4);
 	stbLoadTexture(&texture[GRASS_TOP], "media/textures/grass_top.png", 4);
 	stbLoadTexture(&texture[DIRT], "media/textures/dirt.png", 4);
 	stbLoadTexture(&texture[BEDROCK], "media/textures/bedrock.png", 4);
 
-	stbLoadTexture(&hud[INVENTORY], "media/textures/GUI/inventory.jpg", 4);
-	stbLoadTexture(&hud[INV_SELECTOR], "media/textures/GUI/inventorySelector.png", 4);
-	stbLoadTexture(&hud[CROSSHAIR], "media/textures/GUI/crosshair.png", 4);
-
+	stbLoadTexture(&ui[INVENTORY], "media/textures/GUI/inventory.jpg", 4);
+	stbLoadTexture(&ui[INV_SELECTOR], "media/textures/GUI/inventorySelector.png", 4);
+	stbLoadTexture(&ui[MAIN_MENU_BG], "media/textures/GUI/mainMenuBackground.png", 4);
+	stbLoadTexture(&ui[TITLE], "media/textures/GUI/minecraft.png", 4);
+	
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)
 	// 		for (int k = 0; k < 5; k++)

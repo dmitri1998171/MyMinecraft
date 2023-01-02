@@ -19,7 +19,7 @@ void drawHUD() {
 
 void drawInventory() {
 	glTranslatef((WIDTH / 2) - invWidth / 2, HEIGHT - invHeight - OFFSET, 0);
-	glBindTexture(GL_TEXTURE_2D, hud[0]);
+	glBindTexture(GL_TEXTURE_2D, ui[0]);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 1); glVertex2f(0, invHeight);
 		glTexCoord2f(1, 1); glVertex2f(invWidth, invHeight);
@@ -33,7 +33,7 @@ void drawInventorySelector() {
 	int h = 24 * 2;
 	glPushMatrix();
 	glTranslatef((invWidth / 9) * invSelector, -5, 0);
-	glBindTexture(GL_TEXTURE_2D, hud[1]);
+	glBindTexture(GL_TEXTURE_2D, ui[1]);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 1); glVertex3f(0, h, 1);
 		glTexCoord2f(1, 1); glVertex3f(w, h, 1);

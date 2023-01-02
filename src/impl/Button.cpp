@@ -9,7 +9,7 @@ Button::Button() {
     size.h = invHeight;
     isVisible = true;
 
-// glBindTexture(GL_TEXTURE_2D, hud[0]);
+// glBindTexture(GL_TEXTURE_2D, ui[0]);
 
     setButtonColor(255, 255, 255);
     setTextColor(255, 255, 255);
