@@ -11,11 +11,17 @@
 
 map<string, Button*> buttons;
 
-
-void clickCheck(int x, int y) {
+void buttonClickCheck(int x, int y) {
 	for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
-		if(it->second->isClicked(x, y))
-			cout << it->first << " was clicked!" << endl;
+		if(it->second->isClicked(x, y)) {
+			cout << it->first << " button was clicked!" << endl;
+
+			if(it->first == "play")
+				gameState = GAME;
+
+			if(it->first == "exit")
+				exit(0);
+		}
 	}
 }
 
@@ -129,11 +135,29 @@ void drawFlatWorld(int fieldSize) {
 	}
 }
 
+
+void renderPause() {
+	// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// glLoadIdentity();
+	setOrthographicProjection(); 
+
+	buttons["play"]->draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
+	buttons["exit"]->draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
+	
+	// drawBackground(&texture[DIRT]);
+
+	restorePerspectiveProjection(); 
+	// glutSwapBuffers();
+}
+
+
+
 void renderScene(void) {
 	computePos(deltaMove);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
+	glColor3f(255, 255, 255);
 
     gluLookAt(x, y, z,
 		  x + lx, y + ly, z + lz,
@@ -143,6 +167,12 @@ void renderScene(void) {
 	drawFlatWorld(fieldSize);
 
 	drawHUD();
+
+	if(gameState == PAUSE) {
+		glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
+		renderPause();
+	}
+
 
 	glutSwapBuffers();
 }
@@ -186,16 +216,10 @@ void renderMenu() {
 
 	// drawDebugLines();
 		
-	
-	buttons["play"]->setButtonColor(0, 255, 0);
-	buttons["play"]->addText("PLAY", 255, 255, 255);
 	buttons["play"]->draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
-	
-	buttons["exit"]->setButtonColor(255, 0, 0);
-	buttons["exit"]->addText("EXIT", 255, 255, 255);
 	buttons["exit"]->draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
 
-	drawBackground();
+	drawBackground(&texture[GRASS_SIDE]);
 
 	restorePerspectiveProjection(); 
 	glutSwapBuffers();
@@ -203,18 +227,19 @@ void renderMenu() {
 
 void render() {
 	switch (gameState) {
-	case MAIN_MENU:
-		renderMenu();
-		glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
-		break;
-	case GAME:
-		renderScene();
-		glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
-		break;
-	case PAUSE:
-		// renderMenu();
-		glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
-		break;
+		case MAIN_MENU:
+			renderMenu();
+			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
+			break;
+		case GAME:
+			renderScene();
+			glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
+			break;
+		case PAUSE:
+			// renderPause();
+			renderScene();
+			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
+			break;
 	}
 }
 
@@ -226,7 +251,12 @@ int main(int argc, char **argv) {
 	glutCreateWindow("Minecraft");
 
 	buttons["play"] = new Button;
+	buttons["play"]->setButtonColor(0, 255, 0);
+	buttons["play"]->addText("PLAY", 255, 255, 255);
+	
 	buttons["exit"] = new Button;
+	buttons["exit"]->setButtonColor(255, 0, 0);
+	buttons["exit"]->addText("EXIT", 255, 255, 255);
 
 	glEnable (GL_TEXTURE_2D);		// Работа с текстурами
 	glEnable (GL_DEPTH_TEST);		// тест глубины
@@ -254,10 +284,11 @@ int main(int argc, char **argv) {
 	glutDisplayFunc(render);
     glutReshapeFunc(changeSize);
 
-	glutIgnoreKeyRepeat(1);
+	// glutIgnoreKeyRepeat(1);
     glutKeyboardFunc(pressKey);
+	glutKeyboardUpFunc(releaseKey);
     glutSpecialFunc(pressSpecialKey);
-	glutSpecialUpFunc(releaseKey);
+	glutSpecialUpFunc(releaseSpecialKey);
 
 	glutPassiveMotionFunc(mouseMove);
 	glutMouseFunc(mouseButton);

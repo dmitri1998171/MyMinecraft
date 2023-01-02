@@ -80,6 +80,6 @@ enum HUD_TEXTURES {
     CROSSHAIR
 };
 
-void clickCheck(int x, int y);
+void buttonClickCheck(int x, int y);
 
 #endif

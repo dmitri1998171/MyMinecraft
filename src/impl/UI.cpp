@@ -59,17 +59,17 @@ void fpsCalc() {
 	}
 }
 
-void drawBackground() {
+void drawBackground(GLuint *texture) {
 	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
 	glColor3f(255, 255, 255);
 	
-	glBindTexture(GL_TEXTURE_2D, texture[DIRT]);
+	glBindTexture(GL_TEXTURE_2D, *texture);
 	glBegin(GL_QUADS);
-		glTexCoord2f(0, 1); glVertex2f(0, HEIGHT);
-		glTexCoord2f(1, 1); glVertex2f(WIDTH, HEIGHT);
-		glTexCoord2f(1, 0); glVertex2f(WIDTH, 0);
-		glTexCoord2f(0, 0); glVertex2f(0, 0);
+		glTexCoord2f(1, 0); glVertex2f(0, HEIGHT);
+		glTexCoord2f(0, 0); glVertex2f(WIDTH, HEIGHT);
+		glTexCoord2f(0, 1); glVertex2f(WIDTH, 0);
+		glTexCoord2f(1, 1); glVertex2f(0, 0);
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
