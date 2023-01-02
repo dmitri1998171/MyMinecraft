@@ -6,7 +6,10 @@ void pressKey(unsigned char key, int x, int y) {
     switch (key) {
 // Escape
         case 27:
-			gameState == GAME ? gameState = PAUSE : gameState = GAME;
+			if(gameState != MAIN_MENU) {
+				if(gameState == GAME) gameState = PAUSE; 
+				else gameState = GAME;
+			}
             break;
         
 // Inventory selector
@@ -74,11 +77,6 @@ void mouseMove(int x, int y) {
 
 	yaw = -delta_x * 0.01f;
 	pitch = -delta_y * 0.01f;
-
-	// update camera's direction
-	lx = sin(angle + yaw);
-	ly = -sin(angle + pitch);
-	lz = -cos(angle + yaw);
 
 	glutPostRedisplay();
 }

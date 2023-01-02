@@ -7,6 +7,7 @@ Button::Button() {
     size.y = 0;
     size.w = invWidth;
     size.h = invHeight;
+    isVisible = true;
 
 // glBindTexture(GL_TEXTURE_2D, hud[0]);
 
@@ -61,9 +62,16 @@ void Button::draw(int x, int y) {
 }
 
 bool Button::isClicked(int x, int y) {
-    if(x > size.x && x < (size.x + size.w))
-        if(y > size.y && y < (size.y + size.h))
-            return true;
+    if(this->isVisible == true) {
+        if(x > size.x && x < (size.x + size.w))
+            if(y > size.y && y < (size.y + size.h))
+                return true;
+    }
     
     return false;
 }
+
+void Button::setVisible(bool visibility) {
+    this->isVisible = visibility;
+}
+

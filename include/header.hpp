@@ -43,6 +43,7 @@ inline int delta_x = -1;
 inline int delta_y = -1;
 
 inline float rotate_block = 0;
+inline int fieldSize = 30;
 
 // переменные для вычисления количества кадров в секунду
 inline int frame;
