@@ -2,6 +2,8 @@
 #include "../../include/Button.hpp"
 #include "../../include/UI.hpp"
 
+map<string, Button*> buttons;
+
 Button::Button() {
     isVisible = true;
     isTextured = false;
@@ -26,7 +28,7 @@ void Button::move(int x, int y) {
 void Button::drawText() {
     if(text.size() > 0) {
         glColor3f(text_color.r, text_color.g, text_color.b);
-        renderBitmapString((size.w / 2) - (2 * OFFSET), (size.h / 2) + HEIGHT_OFFSET, 0, GLUT_BITMAP_TIMES_ROMAN_24, text.c_str());
+        renderBitmapString((size.w / 2) - (2 * OFFSET), (size.h / 2) + HEIGHT_OFFSET, 1, GLUT_BITMAP_TIMES_ROMAN_24, text.c_str());
     }
 }
 
@@ -65,10 +67,10 @@ void Button::draw(int x, int y) {
             glColor3f(color.r, color.g, color.b);
 
         glBegin(GL_QUADS);
-            glTexCoord2f(0, 1); glVertex2f(0, size.h);
-            glTexCoord2f(1, 1); glVertex2f(size.w, size.h);
-            glTexCoord2f(1, 0); glVertex2f(size.w, 0);
-            glTexCoord2f(0, 0); glVertex2f(0, 0);
+            glTexCoord2f(0, 1); glVertex3f(0, size.h, 1);
+            glTexCoord2f(1, 1); glVertex3f(size.w, size.h, 1);
+            glTexCoord2f(1, 0); glVertex3f(size.w, 0, 1);
+            glTexCoord2f(0, 0); glVertex3f(0, 0, 1);
         glEnd();
 	glDisable(GL_TEXTURE_2D);
     glPopMatrix();

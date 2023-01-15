@@ -2,6 +2,8 @@
 #include "../../include/input.hpp"
 #include "../../include/Button.hpp"
 
+extern map<string, Button*> buttons;
+
 void pressKey(unsigned char key, int x, int y) {
     switch (key) {
 // Escape
@@ -79,6 +81,26 @@ void mouseMove(int x, int y) {
 	pitch = -delta_y * 0.01f;
 
 	glutPostRedisplay();
+}
+
+void buttonClickCheck(int x, int y) {
+	for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
+		if(it->second->isClicked(x, y)) {
+			cout << it->first << " button was clicked!" << endl;
+
+			if(it->first == "play") 
+				gameState = GAME;
+
+			if(it->first == "exit")
+				exit(0);
+
+			if(it->first == "continue") 
+				gameState = GAME;
+
+			if(it->first == "main_menu") 
+				gameState = MAIN_MENU;
+		}
+	}
 }
 
 void mouseButton(int button, int state, int x, int y) {

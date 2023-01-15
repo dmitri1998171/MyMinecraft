@@ -23,8 +23,10 @@ using namespace std;
 #define PLAYBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2)
 #define EXITBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2) + (HEIGHT / 4)
 #define BUTTON_TEXT_OFFSET_X (invWidth / 2) - (2 * OFFSET)
-#define BUTTON_TEXT_OFFSET_Y 
-
+// #define BUTTON_TEXT_OFFSET_Y 
+#define INV_POS_X (WIDTH / 2) - invWidth / 2
+#define INV_POS_Y HEIGHT - invHeight - OFFSET
+#define INV_SEL_SIZE 24 * 2
 
 // угол поворота камеры
 inline float angle = 0.0;
@@ -85,7 +87,5 @@ enum HUD_TEXTURES {
     TITLE,
     BUTTON
 };
-
-void buttonClickCheck(int x, int y);
 
 #endif
