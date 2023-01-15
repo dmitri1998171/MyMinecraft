@@ -55,7 +55,7 @@ void changeSize(int w, int h) {
 	// предотвращение деления на ноль
 	if (h == 0)
 		h = 1;
-	float ratio =  w * 1.0 / h;
+	float ratio =  1.0 * w / h;
 	// используем матрицу проекции
 	glMatrixMode(GL_PROJECTION);
 	// обнуляем матрицу
@@ -63,7 +63,7 @@ void changeSize(int w, int h) {
 	// установить параметры вьюпорта
 	glViewport(0, 0, w, h);
 	// установить корректную перспективу
-	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
+	gluPerspective(45.0f, ratio, 1, 1000.0f);
 	// вернуться к матрице проекции
 	glMatrixMode(GL_MODELVIEW);
 }
@@ -211,10 +211,9 @@ void renderMenu() {
 	glLoadIdentity();
 	setOrthographicProjection(); 
 
-	drawDebugLines();
+	// drawDebugLines();
 		
-	// drawTitle();
-	drawTexture(&ui[TITLE], TITLE_W, TITLE_H, (WIDTH / 2) - (TITLE_W / 2), (HEIGHT / 4) - (TITLE_H / 2));
+	// drawTexture(&ui[TITLE], TITLE_W, TITLE_H, (WIDTH / 2) - (TITLE_W / 2), (HEIGHT / 4) - (TITLE_H / 2));
 	buttons["play"]->draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
 	buttons["exit"]->draw(BUTTONS_POS_X, EXITBUTTON_POS_Y);
 
@@ -252,18 +251,22 @@ void render() {
 void createButtons() {
 	buttons["play"] = new Button;
 	buttons["play"]->setButtonColor(0, 255, 0);
+	buttons["play"]->setTexture(ui[BUTTON]);
 	buttons["play"]->addText("PLAY", 255, 255, 255);
 	
 	buttons["exit"] = new Button;
 	buttons["exit"]->setButtonColor(255, 0, 0);
+	buttons["exit"]->setTexture(ui[BUTTON]);
 	buttons["exit"]->addText("EXIT", 255, 255, 255);
-
+	
 	buttons["continue"] = new Button;
 	buttons["continue"]->setButtonColor(0, 255, 0);
+	buttons["continue"]->setTexture(ui[BUTTON]);
 	buttons["continue"]->addText("Continue", 255, 255, 255);
 	
 	buttons["main_menu"] = new Button;
 	buttons["main_menu"]->setButtonColor(255, 0, 0);
+	buttons["main_menu"]->setTexture(ui[BUTTON]);
 	buttons["main_menu"]->addText("Main Menu", 255, 255, 255);
 }
 
@@ -273,8 +276,6 @@ int main(int argc, char **argv) {
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow("Minecraft");
-
-	createButtons();
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -294,7 +295,11 @@ int main(int argc, char **argv) {
 	stbLoadTexture(&ui[INV_SELECTOR], "media/textures/GUI/inventorySelector.png", 4);
 	stbLoadTexture(&ui[MAIN_MENU_BG], "media/textures/GUI/mainMenuBackground.png", 4);
 	stbLoadTexture(&ui[TITLE], "media/textures/GUI/minecraft.png", 4);
-	
+	stbLoadTexture(&ui[BUTTON], "media/textures/GUI/button.png", 4);
+
+	createButtons();
+
+
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)
 	// 		for (int k = 0; k < 5; k++)

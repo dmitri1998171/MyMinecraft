@@ -16,11 +16,13 @@ struct _color {
 
 class Button {
     private:
+        bool isVisible;
+        bool isTextured;
+        int texture;
+        string text;
         struct _size size;
         struct _color color;
         struct _color text_color;
-        string text;
-        bool isVisible;
 
         void move(int x, int y);
         void drawText();
@@ -30,6 +32,7 @@ class Button {
         void setButtonColor(int r, int g, int b);
         void setTextColor(int r, int g, int b);
         void addText(string text, int r, int g, int b);
+        void setTexture(GLuint texture);
         void draw(int x, int y);
         bool isClicked(int x, int y);
         void setVisible(bool visibility);

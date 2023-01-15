@@ -3,13 +3,14 @@
 #include "../../include/UI.hpp"
 
 Button::Button() {
+    isVisible = true;
+    isTextured = false;
+    texture = 0;
+
     size.x = 0;
     size.y = 0;
     size.w = invWidth;
     size.h = invHeight;
-    isVisible = true;
-
-// glBindTexture(GL_TEXTURE_2D, ui[0]);
 
     setButtonColor(255, 255, 255);
     setTextColor(255, 255, 255);
@@ -46,18 +47,30 @@ void Button::addText(string text, int r, int g, int b) {
     setTextColor(r, g, b);
 }
 
+void Button::setTexture(GLuint texture) {
+    this->texture = texture;
+    isTextured = true;
+}
+
 void Button::draw(int x, int y) {
     glPushMatrix();
         move(x, y);
         drawText();
 
-        glColor3f(color.r, color.g, color.b);
+        if(isTextured) {
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, texture);
+        }
+        else 
+            glColor3f(color.r, color.g, color.b);
+
         glBegin(GL_QUADS);
             glTexCoord2f(0, 1); glVertex2f(0, size.h);
             glTexCoord2f(1, 1); glVertex2f(size.w, size.h);
             glTexCoord2f(1, 0); glVertex2f(size.w, 0);
             glTexCoord2f(0, 0); glVertex2f(0, 0);
         glEnd();
+	glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 }
 

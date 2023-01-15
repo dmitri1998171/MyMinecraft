@@ -82,7 +82,8 @@ enum HUD_TEXTURES {
     INVENTORY = 0,
     INV_SELECTOR,
     MAIN_MENU_BG,
-    TITLE
+    TITLE,
+    BUTTON
 };
 
 void buttonClickCheck(int x, int y);
