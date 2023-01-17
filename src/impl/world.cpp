@@ -4,7 +4,6 @@
 #include "../../include/Button.hpp"
 
 void makeABlock(int side_index, int top_index, int bottom_index) {
-    float pos = 0.5;
 
    // Activate a texture.
    glBindTexture(GL_TEXTURE_2D, texture[side_index]);

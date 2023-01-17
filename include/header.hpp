@@ -28,6 +28,8 @@ using namespace std;
 #define INV_POS_Y HEIGHT - invHeight - OFFSET
 #define INV_SEL_SIZE 24 * 2
 
+#define PI 3.1415
+
 // угол поворота камеры
 inline float angle = 0.0;
 inline float speed_front = 3.0;
@@ -37,6 +39,7 @@ inline float speed_left = 3.0;
 inline float lx = speed_left, ly = 0.0f, lz = -speed_front;
 // позиция камеры
 inline float x = 0.0f, y = 0, z = 0.0f;
+inline int rc_dist = 120;   // ray casting distance
 
 //Ключи статуса камеры. Переменные инициализируются нулевыми значениями
 //когда клавиши не нажаты
@@ -49,6 +52,8 @@ inline int delta_y = -1;
 
 inline float rotate_block = 0;
 inline int fieldSize = 30;
+inline float pos = 0.5;
+
 
 // переменные для вычисления количества кадров в секунду
 inline int frame;

@@ -5,7 +5,7 @@
 map<string, Button*> buttons;
 
 Button::Button() {
-    isVisible = true;
+    visibility = true;
     isTextured = false;
     texture = 0;
 
@@ -77,7 +77,7 @@ void Button::draw(int x, int y) {
 }
 
 bool Button::isClicked(int x, int y) {
-    if(this->isVisible == true) {
+    if(this->visibility == true) {
         if(x > size.x && x < (size.x + size.w))
             if(y > size.y && y < (size.y + size.h))
                 return true;
@@ -87,6 +87,9 @@ bool Button::isClicked(int x, int y) {
 }
 
 void Button::setVisible(bool visibility) {
-    this->isVisible = visibility;
+    this->visibility = visibility;
 }
 
+bool Button::isVisible() {
+    return this->visibility;
+}

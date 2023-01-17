@@ -76,24 +76,28 @@ void renderMenu() {
 void render() {
 	switch (gameState) {
 		case MAIN_MENU:
-			renderMenu();
-			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
 			buttons["continue"]->setVisible(false);
 			buttons["main_menu"]->setVisible(false);
 			buttons["play"]->setVisible(true);
 			buttons["exit"]->setVisible(true);
+			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
+			renderMenu();
 			break;
 		case GAME:
-			renderScene();
+            buttons["continue"]->setVisible(false);
+			buttons["main_menu"]->setVisible(false);
+			buttons["play"]->setVisible(false);
+			buttons["exit"]->setVisible(false);
 			glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
+			renderScene();
 			break;
 		case PAUSE:
-			renderScene();
 			buttons["continue"]->setVisible(true);
 			buttons["main_menu"]->setVisible(true);
 			buttons["play"]->setVisible(false);
 			buttons["exit"]->setVisible(false);
 			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
+			renderScene();
 			break;
 	}
 }

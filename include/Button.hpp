@@ -16,7 +16,7 @@ struct _color {
 
 class Button {
     private:
-        bool isVisible;
+        bool visibility;
         bool isTextured;
         int texture;
         string text;
@@ -36,6 +36,7 @@ class Button {
         void draw(int x, int y);
         bool isClicked(int x, int y);
         void setVisible(bool visibility);
+        bool isVisible();
 };
 
 #endif

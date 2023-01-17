@@ -85,7 +85,7 @@ void mouseMove(int x, int y) {
 
 void buttonClickCheck(int x, int y) {
 	for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
-		if(it->second->isClicked(x, y)) {
+		if(it->second->isClicked(x, y) && it->second->isVisible()) {
 			cout << it->first << " button was clicked!" << endl;
 
 			if(it->first == "play") 
@@ -103,15 +103,78 @@ void buttonClickCheck(int x, int y) {
 	}
 }
 
+// checking the distance for correctness
+bool check(int x, int y, int z) {
+   if ((x < 0) || (x >= 1000) || 
+	   (y < 0) || (y >= 1000) || 
+	   (z < 0) || (z >= 1000)) return false;
+  
+   return 1;
+}
+
+void rayCast(int button) {
+	// cout << "rayCast\n";
+
+	float loc_x = x;
+	float loc_y = y;
+	float loc_z = z;
+
+	loc_x += deltaMove * lx * 0.1f;
+	loc_y += deltaMove * ly * 0.1f;
+	loc_z += deltaMove * lz * 0.1f;
+
+	int X, Y, Z, oldX, oldY, oldZ;
+	int curr_dist = 1;			// ray cast distance 
+
+	while(curr_dist < rc_dist) {
+		loc_x += sin(angle + yaw);   
+		loc_y += -sin(angle + pitch);   
+		loc_z += -cos(angle + yaw);   
+		
+		X = loc_x  / pos;
+		Y = loc_y  / pos;
+		Z = loc_z  / pos;
+
+		if (check(X, Y, Z)) {				// if coords are valid 
+			cout << "x: " << loc_x << " y: " << loc_y << " z: " << loc_z << endl;
+			cout << "curr_dist: " << curr_dist << endl;
+
+			// cout << "x: " << x << " y: " << y << " z: " << z << endl;
+			// cout << "lx: " << lx << " ly: " << ly << " lz: " << lz << endl;
+
+			if (button == GLUT_LEFT_BUTTON) { 					// and if LMB was clicked
+				// mass[X][Y][Z] = 0; 			// drop the block
+				cout << "drop the block" << endl;
+				break;						// break the loop for optimization
+			}
+			if(button == GLUT_RIGHT_BUTTON) {							// if RMB was clicked 
+				cout << "create the block" << endl;
+				// mass[oldX][oldY][oldZ] = 1; // put a new block
+				break;						// break the loop for optimization
+			}
+		}
+		
+		oldX = X; 
+		oldY = Y; 
+		oldZ = Z;
+
+		curr_dist++;
+	}
+}
+
 void mouseButton(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON) {
 		if (state == GLUT_UP) {
 			// cout << "Left mouse button click" << endl;
 			buttonClickCheck(x, y);
+
+
 		}
 		else  {// state = GLUT_DOWN
 		}
 	}
+
+	rayCast(button);
 }
 
 void mouseWheel(int wheel, int direction, int x, int y) {
