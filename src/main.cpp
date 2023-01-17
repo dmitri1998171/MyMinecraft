@@ -3,6 +3,7 @@
 #include "../include/UI.hpp"
 #include "../include/draw.hpp"
 #include "../include/Button.hpp"
+#include "../include/world.hpp"
 
 void changeSize(int w, int h) {
 	// предотвращение деления на ноль
@@ -48,7 +49,7 @@ int main(int argc, char **argv) {
 	stbLoadTexture(&ui[BUTTON], "media/textures/GUI/button.png", 4);
 
 	createButtons();
-
+	createFlatWorld();
 
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)

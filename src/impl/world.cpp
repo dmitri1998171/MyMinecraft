@@ -60,22 +60,11 @@ void makeABlock(int side_index, int top_index, int bottom_index) {
 	glEnd();
 }
 
-void createFlatWorld(int fieldSize) {
-	for (int i = -fieldSize / 2; i < fieldSize / 2; i++) {
+void createFlatWorld() {
+	for (int i = 0; i < fieldSize; i++) {
 		for (int j = 0; j < 5; j++) {
-			for (int k = -fieldSize / 2; k < fieldSize / 2; k++) {
-				glPushMatrix();
-				glTranslatef(i, j, k);
-				glRotatef(rotate_block, 0, 1, 0);
-
-				if(j == 0)
-					makeABlock(3, 3, 3);	// bedrock
-				else if(j > 3)
-					makeABlock(0, 1, 2);	// grass
-				else
-					makeABlock(2, 2, 2);	// dirt
-
-				glPopMatrix();
+			for (int k = 0; k < fieldSize; k++) {
+				chunk[i][j][k] = 1;
 			}
 		}
 	}

@@ -131,25 +131,26 @@ void rayCast(int button) {
 		loc_y += -sin(angle + pitch);   
 		loc_z += -cos(angle + yaw);   
 		
-		X = loc_x  / pos;
-		Y = loc_y  / pos;
-		Z = loc_z  / pos;
+		X = loc_x / pos;
+		Y = loc_y / pos;
+		Z = loc_z / pos;
 
 		if (check(X, Y, Z)) {				// if coords are valid 
+			cout << endl;
 			cout << "x: " << loc_x << " y: " << loc_y << " z: " << loc_z << endl;
 			cout << "curr_dist: " << curr_dist << endl;
 
-			// cout << "x: " << x << " y: " << y << " z: " << z << endl;
+			cout << "X: " << X << " Y: " << Y << " Z: " << Z << endl;
 			// cout << "lx: " << lx << " ly: " << ly << " lz: " << lz << endl;
 
 			if (button == GLUT_LEFT_BUTTON) { 					// and if LMB was clicked
-				// mass[X][Y][Z] = 0; 			// drop the block
+				chunk[X][Y][Z] = 0; 			// drop the block
 				cout << "drop the block" << endl;
 				break;						// break the loop for optimization
 			}
 			if(button == GLUT_RIGHT_BUTTON) {							// if RMB was clicked 
 				cout << "create the block" << endl;
-				// mass[oldX][oldY][oldZ] = 1; // put a new block
+				chunk[oldX][oldY][oldZ] = 1; // put a new block
 				break;						// break the loop for optimization
 			}
 		}

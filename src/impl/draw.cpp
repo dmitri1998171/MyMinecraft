@@ -26,6 +26,28 @@ void computePos(float deltaMove) {
 	glutPostRedisplay();
 }
 
+void drawFlatWorld() {
+	for (int i = 0; i < fieldSize; i++) {
+		for (int j = 0; j < 5; j++) {
+			for (int k = 0; k < fieldSize; k++) {
+				if(chunk[i][j][k] == true) {
+                    glPushMatrix();
+                    glTranslatef(i, j, k);
+
+                    if(j == 0)
+					    makeABlock(3, 3, 3);	// bedrock
+                    else if(j > 3)
+                        makeABlock(0, 1, 2);	// grass
+                    else
+                        makeABlock(2, 2, 2);	// dirt
+				    
+                    glPopMatrix();
+                }
+			}
+		}
+	}
+}
+
 void renderPause() {
 	setOrthographicProjection(); 
 	buttons["continue"]->draw(BUTTONS_POS_X, PLAYBUTTON_POS_Y);
@@ -42,7 +64,7 @@ void renderScene() {
 		  x + lx, y + ly, z + lz,
 		  0.0f, 1.0f, 0.0f);
  
-	createFlatWorld(fieldSize);
+    drawFlatWorld();
 	drawHUD();
 
 	if(gameState == PAUSE) {

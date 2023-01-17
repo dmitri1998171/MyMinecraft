@@ -51,9 +51,10 @@ inline int delta_x = -1;
 inline int delta_y = -1;
 
 inline float rotate_block = 0;
-inline int fieldSize = 30;
+inline const int fieldSize = 30;
 inline float pos = 0.5;
 
+inline bool chunk[fieldSize][5][fieldSize];
 
 // переменные для вычисления количества кадров в секунду
 inline int frame;
