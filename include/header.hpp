@@ -17,13 +17,15 @@ using namespace std;
 #define TITLE_W 273
 #define TITLE_H 44
 
+#define WORLD_HEIGHT 255
+#define FLAT_WORLD_DEPTH 5
+
 #define OFFSET 15
 #define HEIGHT_OFFSET 6
 #define BUTTONS_POS_X (WIDTH / 2) - (invWidth / 2)
 #define PLAYBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2)
 #define EXITBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2) + (HEIGHT / 4)
 #define BUTTON_TEXT_OFFSET_X (invWidth / 2) - (2 * OFFSET)
-// #define BUTTON_TEXT_OFFSET_Y 
 #define INV_POS_X (WIDTH / 2) - invWidth / 2
 #define INV_POS_Y HEIGHT - invHeight - OFFSET
 #define INV_SEL_SIZE 24 * 2
@@ -39,7 +41,7 @@ inline float speed_left = 3.0;
 inline float lx = speed_left, ly = 0.0f, lz = -speed_front;
 // позиция камеры
 inline float x = 0.0f, y = 0, z = 0.0f;
-inline int rc_dist = 120;   // ray casting distance
+inline int rc_dist = 5;   // ray casting distance
 
 //Ключи статуса камеры. Переменные инициализируются нулевыми значениями
 //когда клавиши не нажаты
@@ -54,7 +56,7 @@ inline float rotate_block = 0;
 inline const int fieldSize = 30;
 inline float pos = 0.5;
 
-inline bool chunk[fieldSize][5][fieldSize];
+inline bool chunk[fieldSize][WORLD_HEIGHT][fieldSize];
 
 // переменные для вычисления количества кадров в секунду
 inline int frame;

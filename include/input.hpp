@@ -6,7 +6,6 @@ void pressSpecialKey(int key, int xx, int yy);
 void releaseSpecialKey(int key, int x, int y);
 void releaseKey(unsigned char key, int x, int y); 
 void mouseMove(int x, int y);
-void buttonClickCheck(int x, int y);
 void mouseButton(int button, int state, int x, int y);
 void mouseWheel(int wheel, int direction, int x, int y);
 

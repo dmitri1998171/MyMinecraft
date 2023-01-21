@@ -83,85 +83,71 @@ void mouseMove(int x, int y) {
 	glutPostRedisplay();
 }
 
-void buttonClickCheck(int x, int y) {
-	for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
-		if(it->second->isClicked(x, y) && it->second->isVisible()) {
-			cout << it->first << " button was clicked!" << endl;
+void buttonClickCheck(int button, int state, int x, int y) {	
+	if(state == GLUT_UP) {
+		if (button == GLUT_LEFT_BUTTON) {
+			for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
+				if(it->second->isClicked(x, y) && it->second->isVisible()) {
+					cout << it->first << " button was clicked!" << endl;
 
-			if(it->first == "play") 
-				gameState = GAME;
+					if(it->first == "play") 
+						gameState = GAME;
 
-			if(it->first == "exit")
-				exit(0);
+					if(it->first == "exit")
+						exit(0);
 
-			if(it->first == "continue") 
-				gameState = GAME;
+					if(it->first == "continue") 
+						gameState = GAME;
 
-			if(it->first == "main_menu") 
-				gameState = MAIN_MENU;
+					if(it->first == "main_menu") 
+						gameState = MAIN_MENU;
+				}
+			}
 		}
 	}
 }
 
 // checking the distance for correctness
-bool check(int x, int y, int z) {
-   if ((x < 0) || (x >= 1000) || 
-	   (y < 0) || (y >= 1000) || 
-	   (z < 0) || (z >= 1000)) return false;
+bool distCheck(int x, int y, int z) {
+   if ((x < 0) || (x >= fieldSize) || 
+	   (y < 0) || (y >= fieldSize) || 
+	   (z < 0) || (z >= fieldSize)) return false;
   
    return 1;
 }
 
-void rayCast(int button) {
-	// cout << "rayCast\n";
-
-	float loc_x = x;
-	float loc_y = y;
-	float loc_z = z;
-
-	loc_x += lx * 0.1f;
-	loc_y += ly * 0.1f;
-	loc_z += lz * 0.1f;
-
+void rayCast(int button, int state) {
 	int X, Y, Z, oldX, oldY, oldZ;
-	int curr_dist = 1;			// ray cast distance 
+	int curr_dist = 1;									// ray casting distance 
+
+	float loc_x = x + lx;
+	float loc_y = y + ly;
+	float loc_z = z + lz;
 
 	while(curr_dist < rc_dist) {
-		loc_x += sin(angle + yaw);   
-		loc_y += -sin(angle + pitch);   
-		loc_z += -cos(angle + yaw);   
+		loc_x += sin(angle + yaw);
+		loc_y += -sin(angle + pitch);
+		loc_z += -cos(angle + yaw);
 
-		X = loc_x;
-		Y = loc_y;
-		Z = loc_z;
-		
-		// if(loc_z < 10) {
-		// 	if((loc_z / 10) < Z)
-		// 		Z = loc_z + 0.4; 
-		// 	else
-		// 		Z = loc_z - 0.4; 
-		// }
+		X = loc_x + pos;
+		Y = loc_y + pos;
+		Z = loc_z + pos;
 
-		if (check(X, Y, Z)) {				// if coords are valid 
-			cout << endl;
-			cout << "x: " << loc_x << " y: " << loc_y << " z: " << loc_z << endl;
-			cout << "curr_dist: " << curr_dist << endl;
-
-			cout << "X: " << X << " Y: " << Y << " Z: " << Z << endl;
-			// cout << "lx: " << lx << " ly: " << ly << " lz: " << lz << endl;
-
-			if (button == GLUT_LEFT_BUTTON) { 					// and if LMB was clicked
-				chunk[X][Y][Z] = 0; 			// drop the block
-				cout << "drop the block" << endl;
-				break;						// break the loop for optimization
-			}
-			if(button == GLUT_RIGHT_BUTTON) {							// if RMB was clicked 
-				cout << "create the block" << endl;
-				chunk[oldX][oldY][oldZ] = 1; // put a new block
-				break;						// break the loop for optimization
+		if (distCheck(X, Y, Z)) {						// if coords are valid 
+			if(chunk[X][Y][Z] == true) {
+				if(state == GLUT_UP) {
+					if (button == GLUT_LEFT_BUTTON) { 	// and if LMB was clicked
+						chunk[X][Y][Z] = false; 		// drop the block
+						break;							// break the loop for optimization
+					}
+					if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 
+						chunk[oldX][oldY][oldZ] = true; // put a new block
+						break;							// break the loop for optimization
+					}
+				}
 			}
 		}
-		
+
 		oldX = X; 
 		oldY = Y; 
 		oldZ = Z;
@@ -171,17 +157,11 @@ void rayCast(int button) {
 }
 
 void mouseButton(int button, int state, int x, int y) {
-	if (button == GLUT_LEFT_BUTTON) {
-		if (state == GLUT_UP) {
-			if(gameState == PAUSE || gameState == MAIN_MENU)
-				buttonClickCheck(x, y);
-			
-			if(gameState == GAME)
-				rayCast(button);
-		}
-		else  {// state = GLUT_DOWN
-		}
-	}
+	if(gameState == PAUSE || gameState == MAIN_MENU)
+		buttonClickCheck(button, state, x, y);
+	
+	if(gameState == GAME)
+		rayCast(button, state);
 }
 
 void mouseWheel(int wheel, int direction, int x, int y) {

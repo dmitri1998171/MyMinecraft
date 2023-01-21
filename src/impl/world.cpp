@@ -62,9 +62,9 @@ void makeABlock(int side_index, int top_index, int bottom_index) {
 
 void createFlatWorld() {
 	for (int i = 0; i < fieldSize; i++) {
-		for (int j = 0; j < 5; j++) {
+		for (int j = 0; j < FLAT_WORLD_DEPTH; j++) {
 			for (int k = 0; k < fieldSize; k++) {
-				chunk[i][j][k] = 1;
+				chunk[i][j][k] = true;
 			}
 		}
 	}

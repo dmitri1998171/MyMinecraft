@@ -25,7 +25,7 @@ void changeSize(int w, int h) {
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(100, 100);
+	glutInitWindowPosition(600, 100);
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow("Minecraft");
 
