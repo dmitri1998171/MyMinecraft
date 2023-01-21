@@ -119,9 +119,9 @@ void rayCast(int button) {
 	float loc_y = y;
 	float loc_z = z;
 
-	loc_x += deltaMove * lx * 0.1f;
-	loc_y += deltaMove * ly * 0.1f;
-	loc_z += deltaMove * lz * 0.1f;
+	loc_x += lx * 0.1f;
+	loc_y += ly * 0.1f;
+	loc_z += lz * 0.1f;
 
 	int X, Y, Z, oldX, oldY, oldZ;
 	int curr_dist = 1;			// ray cast distance 
@@ -130,10 +130,17 @@ void rayCast(int button) {
 		loc_x += sin(angle + yaw);   
 		loc_y += -sin(angle + pitch);   
 		loc_z += -cos(angle + yaw);   
+
+		X = loc_x;
+		Y = loc_y;
+		Z = loc_z;
 		
-		X = loc_x / pos;
-		Y = loc_y / pos;
-		Z = loc_z / pos;
+		// if(loc_z < 10) {
+		// 	if((loc_z / 10) < Z)
+		// 		Z = loc_z + 0.4; 
+		// 	else
+		// 		Z = loc_z - 0.4; 
+		// }
 
 		if (check(X, Y, Z)) {				// if coords are valid 
 			cout << endl;
@@ -166,16 +173,15 @@ void rayCast(int button) {
 void mouseButton(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON) {
 		if (state == GLUT_UP) {
-			// cout << "Left mouse button click" << endl;
-			buttonClickCheck(x, y);
-
-
+			if(gameState == PAUSE || gameState == MAIN_MENU)
+				buttonClickCheck(x, y);
+			
+			if(gameState == GAME)
+				rayCast(button);
 		}
 		else  {// state = GLUT_DOWN
 		}
 	}
-
-	rayCast(button);
 }
 
 void mouseWheel(int wheel, int direction, int x, int y) {

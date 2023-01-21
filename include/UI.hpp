@@ -11,7 +11,6 @@ void stbLoadTexture(GLuint *tex, const char * filename, int req_channels);
 void fpsCalc();
 void drawTexture(GLuint *texture, int w, int h, int x, int y, int z = 0);
 void drawHUD();
-void buttonClickCheck(int x, int y);
 void createButtons();
 
 void drawDebugLines();
