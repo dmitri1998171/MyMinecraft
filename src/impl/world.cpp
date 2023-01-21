@@ -64,7 +64,14 @@ void createFlatWorld() {
 	for (int i = 0; i < fieldSize; i++) {
 		for (int j = 0; j < FLAT_WORLD_DEPTH; j++) {
 			for (int k = 0; k < fieldSize; k++) {
-				chunk[i][j][k] = true;
+				chunk[i][j][k].exist = true;
+
+				if(j == 0)			// bedrock
+					chunk[i][j][k].type = BEDROCK;
+				else if(j > 3)  // grass
+					chunk[i][j][k].type = GRASS_SIDE;
+				else			// dirt
+					chunk[i][j][k].type = DIRT;
 			}
 		}
 	}

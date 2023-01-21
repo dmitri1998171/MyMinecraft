@@ -2,7 +2,7 @@
 #define DRAW_HPP
 
 void computePos(float deltaMove);
-void drawFlatWorld();
+void drawWorld();
 void renderPause();
 void renderScene();
 void renderMenu();

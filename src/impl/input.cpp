@@ -1,6 +1,7 @@
 #include "../../include/header.hpp"
 #include "../../include/input.hpp"
 #include "../../include/Button.hpp"
+#include "../../include/UI.hpp"
 
 extern map<string, Button*> buttons;
 
@@ -134,14 +135,15 @@ void rayCast(int button, int state) {
 		Z = loc_z + pos;
 
 		if (distCheck(X, Y, Z)) {						// if coords are valid 
-			if(chunk[X][Y][Z] == true) {
+			if(chunk[X][Y][Z].exist == true) {
 				if(state == GLUT_UP) {
 					if (button == GLUT_LEFT_BUTTON) { 	// and if LMB was clicked
-						chunk[X][Y][Z] = false; 		// drop the block
+						chunk[X][Y][Z].exist = false; 	// drop the block
+						addToInventory(x, y, z);
 						break;							// break the loop for optimization
 					}
 					if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 
-						chunk[oldX][oldY][oldZ] = true; // put a new block
+						chunk[oldX][oldY][oldZ].exist = true; // put a new block
 						break;							// break the loop for optimization
 					}
 				}

@@ -26,17 +26,17 @@ void computePos(float deltaMove) {
 	glutPostRedisplay();
 }
 
-void drawFlatWorld() {
+void drawWorld() {
 	for (int i = 0; i < fieldSize; i++) {
 		for (int j = 0; j < WORLD_HEIGHT; j++) {
 			for (int k = 0; k < fieldSize; k++) {
-				if(chunk[i][j][k] == true) {
+				if(chunk[i][j][k].exist == true) {
                     glPushMatrix();
                     glTranslatef(i, j, k);
 
-                    if(j == 0)
+                    if(chunk[i][j][k].type == BEDROCK)
 					    makeABlock(3, 3, 3);	// bedrock
-                    else if(j > 3)
+                    else if(chunk[i][j][k].type == GRASS_SIDE)
                         makeABlock(0, 1, 2);	// grass
                     else
                         makeABlock(2, 2, 2);	// dirt
@@ -64,7 +64,7 @@ void renderScene() {
 		  x + lx, y + ly, z + lz,
 		  0.0f, 1.0f, 0.0f);
  
-    drawFlatWorld();
+    drawWorld();
 	drawHUD();
 
 	if(gameState == PAUSE) {

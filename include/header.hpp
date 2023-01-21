@@ -56,7 +56,6 @@ inline float rotate_block = 0;
 inline const int fieldSize = 30;
 inline float pos = 0.5;
 
-inline bool chunk[fieldSize][WORLD_HEIGHT][fieldSize];
 
 // переменные для вычисления количества кадров в секунду
 inline int frame;
@@ -70,6 +69,13 @@ inline int invSelector = 0;	// current selected object from inventory
 
 inline GLuint texture[4];
 inline GLuint ui[4];
+
+struct block_t {
+    bool exist;
+    GLuint type;
+};
+
+inline struct block_t chunk[fieldSize][WORLD_HEIGHT][fieldSize];
 
 inline int pointSize;
 

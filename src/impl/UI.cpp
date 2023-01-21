@@ -115,6 +115,10 @@ void drawTexture(GLuint *texture, int w, int h, int x, int y, int z) {
 	// glDisable(GL_TEXTURE_2D);
 }
 
+void addToInventory(int x, int y, int z) {
+	
+}
+
 void drawHUD() {
     setOrthographicProjection(); 
 
@@ -126,6 +130,12 @@ void drawHUD() {
 	
 	drawTexture(&ui[INVENTORY], invWidth, invHeight, INV_POS_X, INV_POS_Y, 0.9);	// Inventory
 	drawTexture(&ui[INV_SELECTOR], INV_SEL_SIZE, INV_SEL_SIZE, INV_POS_X + (invWidth / 9) * invSelector, INV_POS_Y - 5, 1); // Inventory selector
+
+	// blocks in the inventory 
+	for (int i = 0; i < 8; i++) {
+
+	}
+	
 
 	restorePerspectiveProjection(); 
 }
