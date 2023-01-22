@@ -6,7 +6,7 @@
 class Inventory {
     private:
         int selector;	// current selected object from inventory
-        GLuint inventory[INV_CELLS_CAP];
+        int inventory[INV_CELLS_COUNT];
 
     public:
         Inventory();

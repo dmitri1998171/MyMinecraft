@@ -34,6 +34,7 @@ using namespace std;
 #define INV_POS_X (WIDTH / 2) - invWidth / 2
 #define INV_POS_Y HEIGHT - invHeight - OFFSET
 #define INV_SEL_SIZE 24 * 2
+#define INV_CELLS_COUNT 9
 
 #define PI 3.1415
 

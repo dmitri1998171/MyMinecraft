@@ -142,7 +142,7 @@ void rayCast(int button, int state) {
 				if(state == GLUT_UP) {
 					if (button == GLUT_LEFT_BUTTON) { 	// and if LMB was clicked
 						chunk[X][Y][Z].exist = false; 	// drop the block
-						inventory.addToInventory(x, y, z);
+						inventory.addToInventory(X, Y, Z);
 						break;							// break the loop for optimization
 					}
 					if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 

@@ -6,23 +6,29 @@ Inventory inventory;
 Inventory::Inventory() {
     selector = 0;
 
-    for (int i = 0; i < INV_CELLS_CAP; i++)
+    for (int i = 0; i < INV_CELLS_COUNT; i++)
 		inventory[i] = -1;
-	
+
 	inventory[0] = GRASS_SIDE;
 }
 
 void Inventory::addToInventory(int x, int y, int z) {
-    for (int i = 0; i < INV_CELLS_CAP; i++) {
-		if(inventory[i] != -1)
+    for (int i = 0; i < INV_CELLS_COUNT; i++) {
+		cout << inventory[i] << " ";
+
+        if(inventory[i] == -1) {
 			inventory[i] = chunk[x][y][z].type;
+            break;
+        }
 	}
+
+    cout << endl;
 }
 
 void Inventory::drawInventoryBlocks() {
-    for (int i = 0; i < INV_CELLS_CAP; i++) {
+    for (int i = 0; i < INV_CELLS_COUNT; i++) {
 		if(inventory[i] != -1)
-			drawTexture(&texture[inventory[i]], TEXTURE_SIZE, TEXTURE_SIZE, INV_POS_X + 7 + (invWidth / 9) * selector, INV_POS_Y + 8, 1);  
+			drawTexture(&texture[inventory[i]], TEXTURE_SIZE, TEXTURE_SIZE, INV_POS_X + 7 + (invWidth / 9) * i, INV_POS_Y + 8, 1);  
 	}
 }
 
