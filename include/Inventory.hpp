@@ -3,10 +3,15 @@
 
 #include "header.hpp"
 
+struct cell_t {
+    int type;
+    int size;
+};
+
 class Inventory {
     private:
         int selector;	// current selected object from inventory
-        int inventory[INV_CELLS_COUNT];
+        struct cell_t inventory[INV_CELLS_COUNT];
 
     public:
         Inventory();

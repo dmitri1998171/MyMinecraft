@@ -35,6 +35,10 @@ using namespace std;
 #define INV_POS_Y HEIGHT - invHeight - OFFSET
 #define INV_SEL_SIZE 24 * 2
 #define INV_CELLS_COUNT 9
+#define BLOCKS_COUNTER_POS_X INV_POS_X + 7 + TEXTURE_SIZE + (invWidth / 9)
+#define BLOCKS_COUNTER_POS_Y INV_POS_Y + TEXTURE_SIZE + 8
+
+#define STACK_OF_BLOCKS 64
 
 #define PI 3.1415
 
