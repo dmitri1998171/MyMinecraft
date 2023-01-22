@@ -31,7 +31,8 @@ void Inventory::addToInventory(int x, int y, int z) {
 void Inventory::drawInventoryBlocks() {
     for (int i = 0; i < INV_CELLS_COUNT; i++) {
 		if(inventory[i].type != -1)
-			drawTexture(&texture[inventory[i].type], TEXTURE_SIZE, TEXTURE_SIZE, INV_POS_X + 7 + (invWidth / 9) * i, INV_POS_Y + 8, 1);  
+            if(inventory[i].size > 0)
+			    drawTexture(&texture[inventory[i].type], TEXTURE_SIZE, TEXTURE_SIZE, INV_POS_X + 7 + (invWidth / 9) * i, INV_POS_Y + 8, 1);  
 
         if(inventory[i].size > 1) {
             renderBitmapString(BLOCKS_COUNTER_POS_X * i, BLOCKS_COUNTER_POS_Y, 1, GLUT_BITMAP_HELVETICA_12, itoa(inventory[i].size, new char[10], 10));
@@ -41,12 +42,20 @@ void Inventory::drawInventoryBlocks() {
 
 void Inventory::drawInventory() {
     drawTexture(&ui[INVENTORY], invWidth, invHeight, INV_POS_X, INV_POS_Y, 0.9);		// Inventory
-	// drawTexture(&ui[INV_SELECTOR], INV_SEL_SIZE, INV_SEL_SIZE, INV_POS_X + (invWidth / 9) * selector, INV_POS_Y - 5, 1); // Inventory selector
 	drawInventoryBlocks();
+	drawTexture(&ui[INV_SELECTOR], INV_SEL_SIZE, INV_SEL_SIZE, INV_POS_X + (invWidth / 9) * selector, INV_POS_Y - 5, 1); // Inventory selector
 }
 
-void Inventory::deleteBlock() {
+int Inventory::deleteFromInventory() {
+    if(inventory[selector].size > 0) {
+        inventory[selector].size--;
 
+        return inventory[selector].type;
+    }
+
+    inventory[selector].size = 1;
+    inventory[selector].type = -1;
+    return -1;
 }
 
 void Inventory::changeSelect(int direction) {
@@ -64,6 +73,10 @@ void Inventory::changeSelect(int direction) {
 
 void Inventory::setSelect(int selector) {
     this->selector = selector;
+}
+
+int Inventory::getSelect() {
+    return inventory[selector].type;
 }
 
 void Inventory::calcCellBlocks() {

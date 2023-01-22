@@ -80,8 +80,8 @@ inline GLuint texture[4];
 inline GLuint ui[4];
 
 struct block_t {
-    bool exist;
-    GLuint type;
+    bool exist;     
+    GLuint type;    // texture of the block
 };
 
 inline struct block_t chunk[fieldSize][WORLD_HEIGHT][fieldSize];

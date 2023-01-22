@@ -145,8 +145,15 @@ void rayCast(int button, int state) {
 						inventory.addToInventory(X, Y, Z);
 						break;							// break the loop for optimization
 					}
+
 					if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 
-						chunk[oldX][oldY][oldZ].exist = true; // put a new block
+						int block = inventory.deleteFromInventory();
+
+						if(block != -1) {
+							chunk[oldX][oldY][oldZ].exist = block; // put a new block
+							chunk[oldX][oldY][oldZ].type = inventory.getSelect(); // put a new block
+						}
+						
 						break;							// break the loop for optimization
 					}
 				}

@@ -18,9 +18,10 @@ class Inventory {
         void addToInventory(int x, int y, int z);
         void drawInventoryBlocks();
         void drawInventory();
-        void deleteBlock();
+        int deleteFromInventory();
         void changeSelect(int direction);
         void setSelect(int selector);
+        int getSelect();
         void calcCellBlocks();
 };
 
