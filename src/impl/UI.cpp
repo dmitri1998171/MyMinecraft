@@ -1,6 +1,7 @@
 #include "../../include/header.hpp"
 #include "../../include/UI.hpp"
 #include "../../include/Button.hpp"
+#include "../../include/Inventory.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../include/dependencies/stb_image.h"
@@ -8,6 +9,7 @@
 #include "../../include/dependencies/stb_perlin.h"
 
 extern map<string, Button*> buttons;
+extern Inventory inventory;
 
 void setOrthographicProjection() {
 	//переключения режима проецирования
@@ -115,27 +117,16 @@ void drawTexture(GLuint *texture, int w, int h, int x, int y, int z) {
 	// glDisable(GL_TEXTURE_2D);
 }
 
-void addToInventory(int x, int y, int z) {
-	
-}
-
 void drawHUD() {
     setOrthographicProjection(); 
 
 	glDisable(GL_TEXTURE_2D);
 	fpsCalc();
-	renderBitmapString(5, 15, 1, GLUT_BITMAP_HELVETICA_12, fps);					// draw FPS
+	renderBitmapString(5, 15, 1, GLUT_BITMAP_HELVETICA_12, fps);						// draw FPS
 	renderBitmapString(WIDTH / 2, HEIGHT / 2, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, "+");	// draw crosshair
 	glEnable(GL_TEXTURE_2D);
 	
-	drawTexture(&ui[INVENTORY], invWidth, invHeight, INV_POS_X, INV_POS_Y, 0.9);	// Inventory
-	drawTexture(&ui[INV_SELECTOR], INV_SEL_SIZE, INV_SEL_SIZE, INV_POS_X + (invWidth / 9) * invSelector, INV_POS_Y - 5, 1); // Inventory selector
-
-	// blocks in the inventory 
-	for (int i = 0; i < 8; i++) {
-
-	}
-	
+	inventory.drawInventory();
 
 	restorePerspectiveProjection(); 
 }

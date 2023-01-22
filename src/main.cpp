@@ -5,6 +5,7 @@
 #include "../include/Button.hpp"
 #include "../include/world.hpp"
 
+
 void changeSize(int w, int h) {
 	// предотвращение деления на ноль
 	if (h == 0)

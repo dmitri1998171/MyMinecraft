@@ -2,8 +2,11 @@
 #include "../../include/input.hpp"
 #include "../../include/Button.hpp"
 #include "../../include/UI.hpp"
+#include "../../include/Inventory.hpp"
+
 
 extern map<string, Button*> buttons;
+extern Inventory inventory;
 
 void pressKey(unsigned char key, int x, int y) {
     switch (key) {
@@ -14,17 +17,17 @@ void pressKey(unsigned char key, int x, int y) {
 				else gameState = GAME;
 			}
             break;
-        
+
 // Inventory selector
-		case 49: invSelector = 0; break;
-		case 50: invSelector = 1; break;
-		case 51: invSelector = 2; break;
-		case 52: invSelector = 3; break;
-		case 53: invSelector = 4; break;
-		case 54: invSelector = 5; break;
-		case 55: invSelector = 6; break;
-		case 56: invSelector = 7; break;
-		case 57: invSelector = 8; break;
+		case 49: inventory.setSelect(0); break;
+		case 50: inventory.setSelect(1); break;
+		case 51: inventory.setSelect(2); break;
+		case 52: inventory.setSelect(3); break;
+		case 53: inventory.setSelect(4); break;
+		case 54: inventory.setSelect(5); break;
+		case 55: inventory.setSelect(6); break;
+		case 56: inventory.setSelect(7); break;
+		case 57: inventory.setSelect(8); break;
 
 // Moving
         case 119:       // W
@@ -139,7 +142,7 @@ void rayCast(int button, int state) {
 				if(state == GLUT_UP) {
 					if (button == GLUT_LEFT_BUTTON) { 	// and if LMB was clicked
 						chunk[X][Y][Z].exist = false; 	// drop the block
-						addToInventory(x, y, z);
+						inventory.addToInventory(x, y, z);
 						break;							// break the loop for optimization
 					}
 					if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 
@@ -167,16 +170,6 @@ void mouseButton(int button, int state, int x, int y) {
 }
 
 void mouseWheel(int wheel, int direction, int x, int y) {
-	if(direction > 0) 
-		invSelector++;
-	else 
-		invSelector--;
-	
-	if(invSelector > 8)
-		invSelector = 0;
-
-	if(invSelector < 0)
-		invSelector = 8;
-
-   glutPostRedisplay();
+	inventory.changeSelect(direction);
+	glutPostRedisplay();
 }  

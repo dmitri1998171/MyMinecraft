@@ -9,6 +9,7 @@
 #include <map>
 #include <math.h> 
 #include "../include/dependencies/freeglut.h" 
+
 using namespace std;
 
 #define WIDTH 800
@@ -17,15 +18,19 @@ using namespace std;
 #define TITLE_W 273
 #define TITLE_H 44
 
+#define TEXTURE_SIZE 16 * 1.5
+
 #define WORLD_HEIGHT 255
 #define FLAT_WORLD_DEPTH 5
 
 #define OFFSET 15
 #define HEIGHT_OFFSET 6
+
 #define BUTTONS_POS_X (WIDTH / 2) - (invWidth / 2)
 #define PLAYBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2)
 #define EXITBUTTON_POS_Y (HEIGHT / 2) - (invHeight / 2) + (HEIGHT / 4)
 #define BUTTON_TEXT_OFFSET_X (invWidth / 2) - (2 * OFFSET)
+
 #define INV_POS_X (WIDTH / 2) - invWidth / 2
 #define INV_POS_Y HEIGHT - invHeight - OFFSET
 #define INV_SEL_SIZE 24 * 2
@@ -65,7 +70,6 @@ inline char fps[5];
 // Size of inventory bar is 188x20	
 inline int invWidth = 188 * 2;
 inline int invHeight = 20 * 2;
-inline int invSelector = 0;	// current selected object from inventory
 
 inline GLuint texture[4];
 inline GLuint ui[4];
@@ -76,7 +80,6 @@ struct block_t {
 };
 
 inline struct block_t chunk[fieldSize][WORLD_HEIGHT][fieldSize];
-
 inline int pointSize;
 
 enum MENU {
