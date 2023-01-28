@@ -34,8 +34,6 @@ int main(int argc, char **argv) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable (GL_TEXTURE_2D);		// Работа с текстурами
 	glEnable (GL_DEPTH_TEST);		// тест глубины
-	// glEnable(GL_CULL_FACE);			// occlusion query
-	// glCullFace(GL_FRONT);
 	// glEnable(GLUT_MULTISAMPLE);
 
 	stbLoadTexture(&texture[GRASS_SIDE], "media/textures/grass_side.png", 4);
@@ -43,11 +41,16 @@ int main(int argc, char **argv) {
 	stbLoadTexture(&texture[DIRT], "media/textures/dirt.png", 4);
 	stbLoadTexture(&texture[BEDROCK], "media/textures/bedrock.png", 4);
 
+	stbLoadTexture(&skybox[TOP], "media/textures/skybox/skybox_top.png", 4);
+	stbLoadTexture(&skybox[SIDE], "media/textures/skybox/skybox_side.png", 4);
+	stbLoadTexture(&skybox[BOTTOM], "media/textures/skybox/skybox_bottom.png", 4);
+	
 	stbLoadTexture(&ui[INVENTORY], "media/textures/GUI/inventory.jpg", 4);
 	stbLoadTexture(&ui[INV_SELECTOR], "media/textures/GUI/inventorySelector.png", 4);
 	stbLoadTexture(&ui[MAIN_MENU_BG], "media/textures/GUI/mainMenuBackground.png", 4);
 	stbLoadTexture(&ui[TITLE], "media/textures/GUI/minecraft.png", 4);
 	stbLoadTexture(&ui[BUTTON], "media/textures/GUI/button.png", 4);
+	
 
 	createButtons();
 	createFlatWorld();

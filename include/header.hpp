@@ -77,6 +77,7 @@ inline int invWidth = 188 * 2;
 inline int invHeight = 20 * 2;
 
 inline GLuint texture[4];
+inline GLuint skybox[3];
 inline GLuint ui[4];
 
 struct block_t {
@@ -93,13 +94,19 @@ enum MENU {
     PAUSE
 };
 
-inline int gameState = MAIN_MENU;
+inline int gameState = GAME;
 
 enum TEXTURES {
     GRASS_SIDE = 0,
     GRASS_TOP,
     DIRT,
     BEDROCK
+};
+
+enum SKYBOX {
+    TOP = 0,
+    SIDE,
+    BOTTOM
 };
 
 enum HUD_TEXTURES {

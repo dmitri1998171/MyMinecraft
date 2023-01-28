@@ -3,10 +3,9 @@
 #include "../../include/world.hpp"
 #include "../../include/Button.hpp"
 
-void makeABlock(int side_index, int top_index, int bottom_index) {
-
+void makeABlock(int side_index, int top_index, int bottom_index, float pos) {
    // Activate a texture.
-   glBindTexture(GL_TEXTURE_2D, texture[side_index]);
+   glBindTexture(GL_TEXTURE_2D, side_index);
     // Front
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 0); glVertex3f(-pos, -pos, pos);
@@ -39,7 +38,7 @@ void makeABlock(int side_index, int top_index, int bottom_index) {
 		glTexCoord2f(0, 1); glVertex3f(pos,  pos, -pos);
 	glEnd();
 
-   	glBindTexture(GL_TEXTURE_2D, texture[top_index]);
+   	glBindTexture(GL_TEXTURE_2D, top_index);
 
     // Top
     glBegin(GL_QUADS);
@@ -49,7 +48,7 @@ void makeABlock(int side_index, int top_index, int bottom_index) {
 		glTexCoord2f(0, 1); glVertex3f(-pos, pos, -pos);
 	glEnd();
 
-   	glBindTexture(GL_TEXTURE_2D, texture[bottom_index]);
+   	glBindTexture(GL_TEXTURE_2D, bottom_index);
 
     // Bottom
     glBegin(GL_QUADS);

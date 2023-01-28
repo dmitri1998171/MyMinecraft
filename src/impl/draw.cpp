@@ -35,11 +35,11 @@ void drawWorld() {
                     glTranslatef(i, j, k);
 
                     if(chunk[i][j][k].type == BEDROCK)
-					    makeABlock(3, 3, 3);	// bedrock
+					    makeABlock(texture[BEDROCK], texture[BEDROCK], texture[BEDROCK]);	// bedrock
                     else if(chunk[i][j][k].type == GRASS_SIDE)
-                        makeABlock(0, 1, 2);	// grass
+                        makeABlock(texture[GRASS_SIDE], texture[GRASS_TOP], texture[DIRT]);	// grass
                     else
-                        makeABlock(2, 2, 2);	// dirt
+                        makeABlock(texture[DIRT], texture[DIRT], texture[DIRT]);	// dirt
 				    
                     glPopMatrix();
                 }
@@ -58,12 +58,14 @@ void renderPause() {
 void renderScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
+	
 	glColor3f(255, 255, 255);
 
     gluLookAt(x, y, z,
 		  x + lx, y + ly, z + lz,
 		  0.0f, 1.0f, 0.0f);
  
+	makeABlock(skybox[SIDE], skybox[TOP], skybox[BOTTOM], 550);	// skybox
     drawWorld();
 	drawHUD();
 
@@ -110,7 +112,11 @@ void render() {
 			buttons["main_menu"]->setVisible(false);
 			buttons["play"]->setVisible(false);
 			buttons["exit"]->setVisible(false);
+			
+			// glEnable(GL_CULL_FACE);			// occlusion query
+			// glCullFace(GL_BACK);
 			glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
+	
 			renderScene();
 			break;
 		case PAUSE:
@@ -118,7 +124,10 @@ void render() {
 			buttons["main_menu"]->setVisible(true);
 			buttons["play"]->setVisible(false);
 			buttons["exit"]->setVisible(false);
+
+			// glDisable(GL_CULL_FACE);			// occlusion query
 			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);			// Показать курсор
+
 			renderScene();
 			break;
 	}

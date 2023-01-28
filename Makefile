@@ -32,5 +32,5 @@ win64: $(OBJECTS) obj/main.o
 	$(CC) $(CFLAGS) $(OBJECTS) obj/main.o $(LIB_64) $(WIN_LDFLAGS) -o $(BIN).exe
 
 clean:
-	rm -rf $(BIN)
+	del obj\*.o
 
