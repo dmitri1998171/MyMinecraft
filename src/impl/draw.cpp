@@ -23,6 +23,8 @@ void computePos(float deltaMove) {
 	ly = -sin(angle + pitch);
 	lz = -cos(angle + yaw);
 
+	// cout << "ly: " << ly << endl;
+
 	glutPostRedisplay();
 }
 
@@ -61,8 +63,8 @@ void renderScene() {
 	
 	glColor3f(255, 255, 255);
 
-    gluLookAt(x, y, z,
-		  x + lx, y + ly, z + lz,
+    gluLookAt(x, y + h, z,
+		  x + lx, y + h + ly, z + lz,
 		  0.0f, 1.0f, 0.0f);
  
 	makeABlock(skybox[SIDE], skybox[TOP], skybox[BOTTOM], 550);	// skybox

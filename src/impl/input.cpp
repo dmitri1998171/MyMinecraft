@@ -81,8 +81,16 @@ void mouseMove(int x, int y) {
 	delta_x = (WIDTH / 2) - x;
 	delta_y = (HEIGHT / 2) - y;
 
+	cout << "y: " << y << endl;
+	cout << "HEIGHT / 2: " << HEIGHT / 2 << endl;
+	cout << "delta_y: " << delta_y << endl;
+	cout << endl;
+
 	yaw = -delta_x * 0.01f;
 	pitch = -delta_y * 0.01f;
+
+	// if(pitch > 90) pitch = 90;
+	// if(pitch < 90) pitch = 90;
 
 	glutPostRedisplay();
 }

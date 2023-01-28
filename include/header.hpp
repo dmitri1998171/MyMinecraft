@@ -51,6 +51,7 @@ inline float speed_left = 3.0;
 inline float lx = speed_left, ly = 0.0f, lz = -speed_front;
 // позиция камеры
 inline float x = 0.0f, y = 0, z = 0.0f;
+inline float h = 3; // player's height
 inline int rc_dist = 5;   // ray casting distance
 
 //Ключи статуса камеры. Переменные инициализируются нулевыми значениями
