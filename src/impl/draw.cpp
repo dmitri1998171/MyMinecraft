@@ -3,30 +3,10 @@
 #include "../../include/world.hpp"
 #include "../../include/draw.hpp"
 #include "../../include/Button.hpp"
+#include "../../include/Player.hpp"
 
 extern map<string, Button*> buttons;
-
-void computePos(float deltaMove) {
-	if(deltaMove) {
-		x += deltaMove * lx * 0.1f;
-		y += deltaMove * ly * 0.1f;
-		z += deltaMove * lz * 0.1f;
-
-		// update camera's direction
-	}
-	if(deltaMove_side) {
-		x -= deltaMove_side * lz * 0.1f;
-		z += deltaMove_side * lx * 0.1f;
-	}
-
-	lx = sin(angle + yaw);
-	ly = -sin(angle + pitch);
-	lz = -cos(angle + yaw);
-
-	// cout << "ly: " << ly << endl;
-
-	glutPostRedisplay();
-}
+extern Player player;
 
 void drawWorld() {
 	for (int i = 0; i < fieldSize; i++) {
@@ -63,9 +43,7 @@ void renderScene() {
 	
 	glColor3f(255, 255, 255);
 
-    gluLookAt(x, y + h, z,
-		  x + lx, y + h + ly, z + lz,
-		  0.0f, 1.0f, 0.0f);
+	player.update();
  
 	makeABlock(skybox[SIDE], skybox[TOP], skybox[BOTTOM], 550);	// skybox
     drawWorld();
@@ -73,9 +51,11 @@ void renderScene() {
 
 	if(gameState == PAUSE) {
 		renderPause();
-    }
-	else 
-		computePos(deltaMove); // Отслеживаем перемещение камеры только когда играем
+	}
+	else {
+		player.move();
+    	player.lookAround();
+	}
 
     glEnable(GL_TEXTURE_2D);
 	glutSwapBuffers();
@@ -117,7 +97,7 @@ void render() {
 			
 			// glEnable(GL_CULL_FACE);			// occlusion query
 			// glCullFace(GL_BACK);
-			glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
+			// glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
 	
 			renderScene();
 			break;

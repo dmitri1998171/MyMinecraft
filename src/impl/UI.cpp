@@ -123,7 +123,7 @@ void drawHUD() {
 	glDisable(GL_TEXTURE_2D);
 	fpsCalc();
 	renderBitmapString(5, 15, 1, GLUT_BITMAP_HELVETICA_12, fps);						// draw FPS
-	renderBitmapString(WIDTH / 2, HEIGHT / 2, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, "+");	// draw crosshair
+	renderBitmapString((WIDTH / 2) - 6, (HEIGHT / 2) + 6, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, "+");	// draw crosshair
 	glEnable(GL_TEXTURE_2D);
 	
 	inventory.drawInventory();

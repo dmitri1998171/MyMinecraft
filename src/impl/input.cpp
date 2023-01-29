@@ -3,10 +3,12 @@
 #include "../../include/Button.hpp"
 #include "../../include/UI.hpp"
 #include "../../include/Inventory.hpp"
+#include "../../include/Player.hpp"
 
 
 extern map<string, Button*> buttons;
 extern Inventory inventory;
+extern Player player;
 
 void pressKey(unsigned char key, int x, int y) {
     switch (key) {
@@ -75,22 +77,31 @@ void releaseKey(unsigned char key, int x, int y) {
 	}
 } 
 
-void mouseMove(int x, int y) { 	
+void mouseMove(int x, int y) {
 	// Перевод от коорд. курсора 0,0 к коорд. w/2, h/2
 	// Чтобы камера вращалась не только влево и вниз (увелич. коорд. относ. 0,0)
+	
+	cursorPos.x = x;
+	cursorPos.y = y;
+	cout << "x: " << x << endl;
+	cout << "y: " << y << endl;
+
+	// if(x > (WIDTH * 0.75))
+	// 	x = (WIDTH * 0.75);
+
+	// if(y > HEIGHT)
+	// 	y = HEIGHT;
+
 	delta_x = (WIDTH / 2) - x;
 	delta_y = (HEIGHT / 2) - y;
 
-	cout << "y: " << y << endl;
-	cout << "HEIGHT / 2: " << HEIGHT / 2 << endl;
-	cout << "delta_y: " << delta_y << endl;
+	// cout << "y: " << y << endl;
+	// cout << "HEIGHT / 2: " << HEIGHT / 2 << endl;
+	// cout << "delta_y: " << delta_y << endl;
 	cout << endl;
 
 	yaw = -delta_x * 0.01f;
 	pitch = -delta_y * 0.01f;
-
-	// if(pitch > 90) pitch = 90;
-	// if(pitch < 90) pitch = 90;
 
 	glutPostRedisplay();
 }
@@ -132,9 +143,9 @@ void rayCast(int button, int state) {
 	int X, Y, Z, oldX, oldY, oldZ;
 	int curr_dist = 1;									// ray casting distance 
 
-	float loc_x = x + lx;
-	float loc_y = y + ly;
-	float loc_z = z + lz;
+	float loc_x = player.getX() + lx;
+	float loc_y = player.getY() + ly;
+	float loc_z = player.getZ() + lz;
 
 	while(curr_dist < rc_dist) {
 		loc_x += sin(angle + yaw);

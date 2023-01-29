@@ -49,9 +49,6 @@ inline float speed_left = 3.0;
 
 // координаты вектора направления движения камеры
 inline float lx = speed_left, ly = 0.0f, lz = -speed_front;
-// позиция камеры
-inline float x = 0.0f, y = 0, z = 0.0f;
-inline float h = 3; // player's height
 inline int rc_dist = 5;   // ray casting distance
 
 //Ключи статуса камеры. Переменные инициализируются нулевыми значениями
@@ -63,10 +60,8 @@ inline float deltaMove_side = 0;
 inline int delta_x = -1;
 inline int delta_y = -1;
 
-inline float rotate_block = 0;
 inline const int fieldSize = 30;
 inline float pos = 0.5;
-
 
 // переменные для вычисления количества кадров в секунду
 inline int frame;
@@ -117,5 +112,10 @@ enum HUD_TEXTURES {
     TITLE,
     BUTTON
 };
+
+inline struct cursor_pos_t {
+    int x;
+    int y;
+}cursorPos;
 
 #endif
