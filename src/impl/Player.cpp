@@ -10,7 +10,7 @@ Player::Player() {
 
 void Player::update() {
     move();
-    looking();
+    lookAround();
 
     gluLookAt(x, y + height, z,
 		  x + lx, y + height + ly, z + lz,
@@ -35,9 +35,9 @@ void Player::move() {
 }
 
 void Player::lookAround() {
-	lx = sin(angle + yaw);
-	ly = -sin(angle + pitch);
-	lz = -cos(angle + yaw);
+	lx = sin(yaw);
+	ly = -sin(pitch);
+	lz = -cos(yaw);
 
 	glutPostRedisplay();
 }

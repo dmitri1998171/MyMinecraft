@@ -80,29 +80,13 @@ void releaseKey(unsigned char key, int x, int y) {
 void mouseMove(int x, int y) {
 	// Перевод от коорд. курсора 0,0 к коорд. w/2, h/2
 	// Чтобы камера вращалась не только влево и вниз (увелич. коорд. относ. 0,0)
-	
-	cursorPos.x = x;
-	cursorPos.y = y;
-	cout << "x: " << x << endl;
-	cout << "y: " << y << endl;
-
-	// if(x > (WIDTH * 0.75))
-	// 	x = (WIDTH * 0.75);
-
-	// if(y > HEIGHT)
-	// 	y = HEIGHT;
-
-	delta_x = (WIDTH / 2) - x;
-	delta_y = (HEIGHT / 2) - y;
-
-	// cout << "y: " << y << endl;
-	// cout << "HEIGHT / 2: " << HEIGHT / 2 << endl;
-	// cout << "delta_y: " << delta_y << endl;
-	cout << endl;
+	delta_x += ((WIDTH / 2) - x);
+	delta_y += ((HEIGHT / 2) - y);
 
 	yaw = -delta_x * 0.01f;
 	pitch = -delta_y * 0.01f;
 
+	glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
 	glutPostRedisplay();
 }
 
@@ -148,9 +132,9 @@ void rayCast(int button, int state) {
 	float loc_z = player.getZ() + lz;
 
 	while(curr_dist < rc_dist) {
-		loc_x += sin(angle + yaw);
-		loc_y += -sin(angle + pitch);
-		loc_z += -cos(angle + yaw);
+		loc_x += sin(yaw);
+		loc_y += -sin(pitch);
+		loc_z += -cos(yaw);
 
 		X = loc_x + pos;
 		Y = loc_y + pos;

@@ -97,7 +97,7 @@ void render() {
 			
 			// glEnable(GL_CULL_FACE);			// occlusion query
 			// glCullFace(GL_BACK);
-			// glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
+			glutSetCursor(GLUT_CURSOR_NONE);				// Скрыть курсор
 	
 			renderScene();
 			break;

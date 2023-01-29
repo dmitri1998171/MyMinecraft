@@ -43,7 +43,6 @@ using namespace std;
 #define PI 3.1415
 
 // угол поворота камеры
-inline float angle = 0.0;
 inline float speed_front = 3.0;
 inline float speed_left = 3.0;
 
