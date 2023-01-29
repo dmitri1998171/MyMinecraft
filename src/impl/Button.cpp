@@ -6,7 +6,8 @@ map<string, Button*> buttons;
 
 Button::Button() {
     visibility = true;
-    isTextured = false;
+    _isTextured = false;
+    hover = false;
     texture = 0;
 
     size.x = 0;
@@ -51,7 +52,7 @@ void Button::addText(string text, int r, int g, int b) {
 
 void Button::setTexture(GLuint texture) {
     this->texture = texture;
-    isTextured = true;
+    _isTextured = true;
 }
 
 void Button::draw(int x, int y) {
@@ -59,9 +60,14 @@ void Button::draw(int x, int y) {
         move(x, y);
         drawText();
 
-        if(isTextured) {
+        if(_isTextured) {
             glEnable(GL_TEXTURE_2D);
             glBindTexture(GL_TEXTURE_2D, texture);
+
+            if(hover)
+                glColor4f(1, 1, 1, 1);
+        	else
+        	    glColor4f(1, 1, 1, 0.8);
         }
         else 
             glColor3f(color.r, color.g, color.b);
@@ -76,14 +82,19 @@ void Button::draw(int x, int y) {
     glPopMatrix();
 }
 
-bool Button::isClicked(int x, int y) {
+bool Button::isHovered(int x, int y) {
     if(this->visibility == true) {
-        if(x > size.x && x < (size.x + size.w))
-            if(y > size.y && y < (size.y + size.h))
-                return true;
+        if((x > size.x && x < (size.x + size.w)) && (y > size.y && y < (size.y + size.h)))
+                hover = true;
+        else 
+                hover = false;
     }
-    
-    return false;
+
+    return hover;
+}
+
+void Button::setHover(bool hover) {
+    this->hover = hover;
 }
 
 void Button::setVisible(bool visibility) {

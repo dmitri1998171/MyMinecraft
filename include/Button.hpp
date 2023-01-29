@@ -17,7 +17,8 @@ struct _color {
 class Button {
     private:
         bool visibility;
-        bool isTextured;
+        bool _isTextured;
+        bool hover;
         int texture;
         string text;
         struct _size size;
@@ -34,7 +35,8 @@ class Button {
         void addText(string text, int r, int g, int b);
         void setTexture(GLuint texture);
         void draw(int x, int y);
-        bool isClicked(int x, int y);
+        bool isHovered(int x, int y);
+        void setHover(bool hover);
         void setVisible(bool visibility);
         bool isVisible();
 };

@@ -89,7 +89,7 @@ enum MENU {
     PAUSE
 };
 
-inline int gameState = GAME;
+inline int gameState = MAIN_MENU;
 
 enum TEXTURES {
     GRASS_SIDE = 0,

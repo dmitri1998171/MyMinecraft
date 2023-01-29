@@ -78,15 +78,32 @@ void releaseKey(unsigned char key, int x, int y) {
 } 
 
 void mouseMove(int x, int y) {
-	// Перевод от коорд. курсора 0,0 к коорд. w/2, h/2
-	// Чтобы камера вращалась не только влево и вниз (увелич. коорд. относ. 0,0)
-	delta_x += ((WIDTH / 2) - x);
-	delta_y += ((HEIGHT / 2) - y);
+	if(gameState == GAME) {
+		// Перевод от коорд. курсора 0,0 к коорд. w/2, h/2
+		// Чтобы камера вращалась не только влево и вниз (увелич. коорд. относ. 0,0)
+		delta_x += ((WIDTH / 2) - x);
+		delta_y += ((HEIGHT / 2) - y);
 
-	yaw = -delta_x * 0.01f;
-	pitch = -delta_y * 0.01f;
+		yaw = -delta_x * 0.01f;
+		pitch = -delta_y * 0.01f;
 
-	glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
+		glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
+	}
+
+	if(gameState == PAUSE || gameState == MAIN_MENU) {
+		for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
+				if(it->second->isHovered(x, y)) {
+					cout << "Hovered!" << endl;
+
+					it->second->setHover(true);
+				}
+
+				else
+					it->second->setHover(false);
+		}
+
+	}
+	
 	glutPostRedisplay();
 }
 
@@ -94,7 +111,7 @@ void buttonClickCheck(int button, int state, int x, int y) {
 	if(state == GLUT_UP) {
 		if (button == GLUT_LEFT_BUTTON) {
 			for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
-				if(it->second->isClicked(x, y) && it->second->isVisible()) {
+				if(it->second->isHovered(x, y)) {
 					cout << it->first << " button was clicked!" << endl;
 
 					if(it->first == "play") 
