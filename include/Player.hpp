@@ -16,6 +16,7 @@ public:
     void update();
     void move();
     void lookAround();
+    void rayCast(int button, int state);
     void collision();
     float getX();
     float getY();

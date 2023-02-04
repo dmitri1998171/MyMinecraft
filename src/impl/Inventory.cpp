@@ -53,8 +53,8 @@ int Inventory::deleteFromInventory() {
         return inventory[selector].type;
     }
 
-    inventory[selector].size = 1;
     inventory[selector].type = -1;
+    inventory[selector].size = 1;
     return -1;
 }
 
