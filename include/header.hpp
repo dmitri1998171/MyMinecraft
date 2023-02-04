@@ -6,8 +6,10 @@
 #endif
 
 #include <iostream>
+#include <iomanip>
 #include <map>
-#include <math.h> 
+#include <cmath> 
+#include <ctime> 
 #include "../include/dependencies/freeglut.h" 
 
 using namespace std;
@@ -39,6 +41,7 @@ using namespace std;
 #define BLOCKS_COUNTER_POS_Y INV_POS_Y + TEXTURE_SIZE + 8
 
 #define STACK_OF_BLOCKS 64
+#define PERLIN_NOISE_SCALE 20
 
 #define PI 3.1415
 
@@ -89,7 +92,7 @@ enum MENU {
     PAUSE
 };
 
-inline int gameState = MAIN_MENU;
+inline int gameState = GAME;
 
 enum TEXTURES {
     GRASS_SIDE = 0,

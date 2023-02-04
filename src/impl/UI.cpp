@@ -5,8 +5,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../include/dependencies/stb_image.h"
-#define STB_PERLIN_IMPLEMENTATION
-#include "../../include/dependencies/stb_perlin.h"
 
 extern map<string, Button*> buttons;
 extern Inventory inventory;

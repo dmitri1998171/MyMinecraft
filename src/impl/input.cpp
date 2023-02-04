@@ -92,11 +92,8 @@ void mouseMove(int x, int y) {
 
 	if(gameState == PAUSE || gameState == MAIN_MENU) {
 		for (map<string, Button*>::const_iterator it = buttons.begin(); it != buttons.end(); it++) {
-				if(it->second->isHovered(x, y)) {
-					cout << "Hovered!" << endl;
-
+				if(it->second->isHovered(x, y)) 
 					it->second->setHover(true);
-				}
 
 				else
 					it->second->setHover(false);

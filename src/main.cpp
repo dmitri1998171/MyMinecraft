@@ -24,6 +24,8 @@ void changeSize(int w, int h) {
 }
 
 int main(int argc, char **argv) {
+	srand(time(NULL));
+	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(600, 100);
@@ -53,7 +55,8 @@ int main(int argc, char **argv) {
 	
 
 	createButtons();
-	createFlatWorld();
+	// createFlatWorld();
+	createClassicWorld();
 
 	// for (int i = 0; i < 5; i++)
 	// 	for (int j = 0; j < 5; j++)
