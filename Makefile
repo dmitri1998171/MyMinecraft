@@ -8,7 +8,7 @@ OBJECTS := $(patsubst src/impl/%, %, $(OBJECTS))
 OBJECTS := $(addprefix obj/, $(OBJECTS))
 
 CC := g++
-CFLAGS := -Wno-deprecated-declarations --std=c++17
+CFLAGS := -Wno-deprecated-declarations --std=c++17 -g
 
 LIB := lib/libfreeglut.a
 LIB_64 := lib/libfreeglut_x64.a

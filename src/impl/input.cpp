@@ -5,7 +5,6 @@
 #include "../../include/Inventory.hpp"
 #include "../../include/Player.hpp"
 
-
 extern map<string, Button*> buttons;
 extern Inventory inventory;
 extern Player player;
@@ -154,28 +153,28 @@ void rayCast(int button, int state) {
 		Y = loc_y + pos;
 		Z = loc_z + pos;
 
-		if (distCheck(X, Y, Z)) {						// if coords are valid 
-			if(chunk[X][Y][Z].exist == true) {
-				if(state == GLUT_UP) {
-					if (button == GLUT_LEFT_BUTTON) { 	// and if LMB was clicked
-						chunk[X][Y][Z].exist = false; 	// drop the block
-						inventory.addToInventory(X, Y, Z);
-						break;							// break the loop for optimization
-					}
+		// if (distCheck(X, Y, Z)) {						// if coords are valid 
+		// 	if(chunk[X][Y][Z].exist == true) {
+		// 		if(state == GLUT_UP) {
+		// 			if (button == GLUT_LEFT_BUTTON) { 	// and if LMB was clicked
+		// 				chunk[X][Y][Z].exist = false; 	// drop the block
+		// 				inventory.addToInventory(X, Y, Z);
+		// 				break;							// break the loop for optimization
+		// 			}
 
-					if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 
-						int block = inventory.deleteFromInventory();
+		// 			if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 
+		// 				int block = inventory.deleteFromInventory();
 
-						if(block != -1) {
-							chunk[oldX][oldY][oldZ].exist = block; // put a new block
-							chunk[oldX][oldY][oldZ].type = inventory.getSelect(); // put a new block
-						}
+		// 				if(block != -1) {
+		// 					chunk[oldX][oldY][oldZ].exist = block; // put a new block
+		// 					chunk[oldX][oldY][oldZ].type = inventory.getSelect(); // put a new block
+		// 				}
 						
-						break;							// break the loop for optimization
-					}
-				}
-			}
-		}
+		// 				break;							// break the loop for optimization
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 		oldX = X; 
 		oldY = Y; 

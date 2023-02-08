@@ -3,8 +3,9 @@
 #include "../include/UI.hpp"
 #include "../include/draw.hpp"
 #include "../include/Button.hpp"
-#include "../include/world.hpp"
+#include "../include/Map.hpp"
 
+extern Map _map;
 
 void changeSize(int w, int h) {
 	// предотвращение деления на ноль
@@ -56,14 +57,8 @@ int main(int argc, char **argv) {
 
 	createButtons();
 	// createFlatWorld();
-	createClassicWorld();
-
-	// for (int i = 0; i < 5; i++)
-	// 	for (int j = 0; j < 5; j++)
-	// 		for (int k = 0; k < 5; k++)
-	// 			cout << stb_perlin_noise3_seed(i, j, k, 0, 0, 0, 8) << endl;
+	_map.expand();
 	
-
 	glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
 
 	glutDisplayFunc(render);

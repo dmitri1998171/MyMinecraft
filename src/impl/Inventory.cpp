@@ -13,19 +13,19 @@ Inventory::Inventory() {
 }
 
 void Inventory::addToInventory(int x, int y, int z) {
-    for (int i = 0; i < INV_CELLS_COUNT; i++) {
-        if(inventory[i].type == chunk[x][y][z].type) {      // if dropped block equal to the current block
-            if(inventory[i].size < STACK_OF_BLOCKS) {
-                inventory[i].size++;
-                break;
-            }
-        }
+    // for (int i = 0; i < INV_CELLS_COUNT; i++) {
+    //     if(inventory[i].type == chunk[x][y][z].type) {      // if dropped block equal to the current block
+    //         if(inventory[i].size < STACK_OF_BLOCKS) {
+    //             inventory[i].size++;
+    //             break;
+    //         }
+    //     }
 
-        if(inventory[i].type == -1) {                       // if current cell is empty
-            inventory[i].type = chunk[x][y][z].type;
-            break;
-        }
-	}
+    //     if(inventory[i].type == -1) {                       // if current cell is empty
+    //         inventory[i].type = chunk[x][y][z].type;
+    //         break;
+    //     }
+	// }
 }
 
 void Inventory::drawInventoryBlocks() {
