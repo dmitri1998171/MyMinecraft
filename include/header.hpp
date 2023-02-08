@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iomanip>
 #include <map>
+#include <vector>
 #include <cmath> 
 #include <ctime> 
 #include "../include/dependencies/freeglut.h" 
@@ -77,14 +78,6 @@ inline int invHeight = 20 * 2;
 inline GLuint texture[4];
 inline GLuint skybox[3];
 inline GLuint ui[4];
-
-struct block_t {
-    bool exist;     
-    GLuint type;    // texture of the block
-};
-
-inline struct block_t chunk[fieldSize][WORLD_HEIGHT][fieldSize];
-inline int pointSize;
 
 enum MENU {
     MAIN_MENU = 0,

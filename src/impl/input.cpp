@@ -5,7 +5,6 @@
 #include "../../include/Inventory.hpp"
 #include "../../include/Player.hpp"
 
-
 extern map<string, Button*> buttons;
 extern Inventory inventory;
 extern Player player;
@@ -125,6 +124,63 @@ void buttonClickCheck(int button, int state, int x, int y) {
 				}
 			}
 		}
+	}
+}
+
+// checking the distance for correctness
+bool distCheck(int x, int y, int z) {
+   if ((x < 0) || (x >= fieldSize) || 
+	   (y < 0) || (y >= fieldSize) || 
+	   (z < 0) || (z >= fieldSize)) return false;
+  
+   return 1;
+}
+
+void rayCast(int button, int state) {
+	int X, Y, Z, oldX, oldY, oldZ;
+	int curr_dist = 1;									// ray casting distance 
+
+	float loc_x = player.getX() + lx;
+	float loc_y = player.getY() + ly;
+	float loc_z = player.getZ() + lz;
+
+	while(curr_dist < rc_dist) {
+		loc_x += sin(yaw);
+		loc_y += -sin(pitch);
+		loc_z += -cos(yaw);
+
+		X = loc_x + pos;
+		Y = loc_y + pos;
+		Z = loc_z + pos;
+
+		// if (distCheck(X, Y, Z)) {						// if coords are valid 
+		// 	if(chunk[X][Y][Z].exist == true) {
+		// 		if(state == GLUT_UP) {
+		// 			if (button == GLUT_LEFT_BUTTON) { 	// and if LMB was clicked
+		// 				chunk[X][Y][Z].exist = false; 	// drop the block
+		// 				inventory.addToInventory(X, Y, Z);
+		// 				break;							// break the loop for optimization
+		// 			}
+
+		// 			if(button == GLUT_RIGHT_BUTTON) {	// if RMB was clicked 
+		// 				int block = inventory.deleteFromInventory();
+
+		// 				if(block != -1) {
+		// 					chunk[oldX][oldY][oldZ].exist = block; // put a new block
+		// 					chunk[oldX][oldY][oldZ].type = inventory.getSelect(); // put a new block
+		// 				}
+						
+		// 				break;							// break the loop for optimization
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		oldX = X; 
+		oldY = Y; 
+		oldZ = Z;
+
+		curr_dist++;
 	}
 }
 

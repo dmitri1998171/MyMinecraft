@@ -1,34 +1,13 @@
 #include "../../include/header.hpp"
 #include "../../include/UI.hpp"
-#include "../../include/world.hpp"
 #include "../../include/draw.hpp"
 #include "../../include/Button.hpp"
 #include "../../include/Player.hpp"
+#include "../../include/Map.hpp"
 
 extern map<string, Button*> buttons;
 extern Player player;
-
-void drawWorld() {
-	for (int i = 0; i < fieldSize; i++) {
-		for (int j = 0; j < WORLD_HEIGHT; j++) {
-			for (int k = 0; k < fieldSize; k++) {
-				if(chunk[i][j][k].exist == true) {
-                    glPushMatrix();
-                    glTranslatef(i, j, k);
-
-                    if(chunk[i][j][k].type == BEDROCK)
-					    makeABlock(texture[BEDROCK], texture[BEDROCK], texture[BEDROCK]);	// bedrock
-                    else if(chunk[i][j][k].type == GRASS_SIDE)
-                        makeABlock(texture[GRASS_SIDE], texture[GRASS_TOP], texture[DIRT]);	// grass
-                    else
-                        makeABlock(texture[DIRT], texture[DIRT], texture[DIRT]);	// dirt
-				    
-                    glPopMatrix();
-                }
-			}
-		}
-	}
-}
+extern Map _map;
 
 void renderPause() {
 	setOrthographicProjection(); 
@@ -45,8 +24,8 @@ void renderScene() {
 
 	player.update();
  
-	makeABlock(skybox[SIDE], skybox[TOP], skybox[BOTTOM], 550);	// skybox
-    drawWorld();
+	_map.makeABlock(skybox[SIDE], skybox[TOP], skybox[BOTTOM], 550);	// skybox
+    _map.draw();
 	drawHUD();
 
 	if(gameState == PAUSE) {
