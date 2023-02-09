@@ -8,9 +8,15 @@ struct block_t {
     GLuint type;    // texture of the block
 };
 
+struct curr_chunk_t {
+    int x;
+    int z;
+};
+
 class Map {
     private:
         vector<struct block_t ***> _map;
+        curr_chunk_t currentChunk;
 
         struct block_t ***allocateChunk();
         struct block_t ***createFlatChunk();
@@ -22,8 +28,11 @@ class Map {
         void expand();
         void draw();
         void drawChunk(struct block_t ***chunk);
-        // struct block_t setCurrentChunk();
-        // struct block_t getCurrentChunk();
+        void checkCurrentPosition(int x, int z);
+        void setCurrentChunk(int x, int z);
+        struct curr_chunk_t getCurrentChunk();
+        void incCurrentChunk_x();
+        void incCurrentChunk_z();
 
 };
 
