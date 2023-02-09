@@ -58,6 +58,8 @@ int main(int argc, char **argv) {
 	createButtons();
 	// createFlatWorld();
 	_map.expand();
+	// _map.expand();
+	// _map.expand();
 	
 	glutWarpPointer(WIDTH / 2, HEIGHT / 2);		// Установка курсора в поз.
 

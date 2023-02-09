@@ -2,6 +2,8 @@
 #include "../../include/dependencies/Perlin_Noise.hpp"
 
 Map::Map() {
+	currentChunk.x = 0;
+	currentChunk.z = 0;
 }
 
 struct block_t ***Map::allocateChunk() {
@@ -137,8 +139,10 @@ void Map::expand() {
 }
 
 void Map::draw() {
-	for (int i = 0; i < _map.size(); i++)
+	for (int i = 0; i < _map.size(); i++) {
+		glTranslatef(i * fieldSize * pos * currentChunk.x, 0, i * fieldSize * pos * currentChunk.z);
 		drawChunk(_map[i]);
+	}
 }
 
 void Map::drawChunk(struct block_t ***chunk) {
@@ -163,13 +167,34 @@ void Map::drawChunk(struct block_t ***chunk) {
 	}
 }
 
-// struct block_t Map::setCurrentChunk() {
-	
-// }
+void Map::checkCurrentPosition(int x, int z) {
+	cout << "x: " << x << " z: " << z << endl;
 
-// struct block_t Map::getCurrentChunk() {
+	if(x > _map.size() * fieldSize * pos * currentChunk.x) {
+		incCurrentChunk_x();
+		expand();
+	}
 
-// }
+	// if(z > fieldSize * pos)
+		// incCurrentChunk_z();
+}
+
+void Map::setCurrentChunk(int x, int z) {
+	currentChunk.x = x;
+	currentChunk.z = z;
+}
+
+struct curr_chunk_t Map::getCurrentChunk() {
+	return currentChunk;
+}
+
+void Map::incCurrentChunk_x(){
+	currentChunk.x++;
+}
+
+void Map::incCurrentChunk_z(){
+	currentChunk.z++;
+}
 
 Map _map;
 

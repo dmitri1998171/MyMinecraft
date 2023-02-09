@@ -23,7 +23,8 @@ void renderScene() {
 	glColor3f(255, 255, 255);
 
 	player.update();
- 
+	_map.checkCurrentPosition(player.getX(), player.getZ());
+
 	_map.makeABlock(skybox[SIDE], skybox[TOP], skybox[BOTTOM], 550);	// skybox
     _map.draw();
 	drawHUD();
