@@ -140,8 +140,14 @@ void Map::expand() {
 
 void Map::draw() {
 	for (int i = 0; i < _map.size(); i++) {
-		glTranslatef(i * fieldSize * pos * currentChunk.x, 0, i * fieldSize * pos * currentChunk.z);
-		drawChunk(_map[i]);
+		glPushMatrix();
+
+// currentChunk.x умножается на i и мешает !!! без currentChunk.x чанк генерится по диаг.
+
+
+			glTranslatef(i * fieldSize * pos * currentChunk.x, 0, i * fieldSize * pos * currentChunk.z);
+			drawChunk(_map[i]);
+		glPopMatrix();
 	}
 }
 
@@ -151,15 +157,14 @@ void Map::drawChunk(struct block_t ***chunk) {
 			for (int k = 0; k < fieldSize; k++) {
 				if(chunk[i][j][k].exist == true) {
                     glPushMatrix();
-                    glTranslatef(i, j, k);
+						glTranslatef(i, j, k);
 
-                    if(chunk[i][j][k].type == BEDROCK)
-					    makeABlock(texture[BEDROCK], texture[BEDROCK], texture[BEDROCK]);	// bedrock
-                    else if(chunk[i][j][k].type == GRASS_SIDE)
-                        makeABlock(texture[GRASS_SIDE], texture[GRASS_TOP], texture[DIRT]);	// grass
-                    else
-                        makeABlock(texture[DIRT], texture[DIRT], texture[DIRT]);			// dirt
-				    
+						if(chunk[i][j][k].type == BEDROCK)
+							makeABlock(texture[BEDROCK], texture[BEDROCK], texture[BEDROCK]);	// bedrock
+						else if(chunk[i][j][k].type == GRASS_SIDE)
+							makeABlock(texture[GRASS_SIDE], texture[GRASS_TOP], texture[DIRT]);	// grass
+						else
+							makeABlock(texture[DIRT], texture[DIRT], texture[DIRT]);			// dirt
                     glPopMatrix();
                 }
 			}
@@ -168,15 +173,15 @@ void Map::drawChunk(struct block_t ***chunk) {
 }
 
 void Map::checkCurrentPosition(int x, int z) {
-	cout << "x: " << x << " z: " << z << endl;
-
-	if(x > _map.size() * fieldSize * pos * currentChunk.x) {
+	if(x > _map.size() * fieldSize * pos) {
 		incCurrentChunk_x();
 		expand();
 	}
 
-	// if(z > fieldSize * pos)
-		// incCurrentChunk_z();
+	if(z > _map.size() * fieldSize * pos) {
+		incCurrentChunk_z();
+		expand();
+	}
 }
 
 void Map::setCurrentChunk(int x, int z) {
